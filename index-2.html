@@ -80,13 +80,16 @@ if (navigator.geolocation) {
         console.log(uid);
         console.log(name);
         console.log(dob);
-  firebase.database().ref('users/'+uid).set({
+  firebase.database().ref('users/'+genderval+'/'+uid).set({
     name: name,
     dob: dob,
     profile_picture : 'avatar.jpg',
     gender: genderval,
     latitude:latitude,
     longitude:longitude
+  });
+  firebase.database().ref('genders/'+uid).set({
+    gender: genderval,
   });
 }
     function signOut(){
@@ -126,7 +129,17 @@ return false;
     function signIn(){
         let email=document.getElementById('login_username').value;
         let password=document.getElementById('login_password').value;
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(
+  (user)=>{
+ // here you can use either the returned user object or       firebase.auth().currentUser. I will use the returned user object
+    if(user){
+        window.location.href="swipe.html"
+    }
+    else{
+        alert("Couldn't Log In")
+    }
+}).catch(function(error) {
 // Handle Errors here.
 var errorCode = error.code;
 var errorMessage = error.message;
@@ -134,7 +147,7 @@ alert(errorMessage)
 
 // ...
 });
-window.location.href="swipe.html"
+
 }
 </script>
 <head>

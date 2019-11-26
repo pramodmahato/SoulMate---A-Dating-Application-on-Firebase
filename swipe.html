@@ -31,14 +31,85 @@
   // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
   const firebaseAppAuth = firebaseApp.auth();
+  var database = firebase.database();
+  function getGender(uid){
+    firebase.database().ref('genders/' + uid).once('value').then(function(snapshot) {
+        let gen=snapshot.val().gender;
+        console.log(gen)
+        gen=="Male"? getUsers('Female'):getUsers('Male')
+});
+  }
+  function getUsers(gender){
 
+      /*<div class="item">
+                    <div class="single_blog_slider">
+                        <img src="img/blog/blog_slider/a.jpg" alt="">
+                        <div class="blog_item_content">
+                            <h4>25</h4>
+                            <h5>0.35 KMs away</h5>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-times"></i></a></li>
+                                <li><a href="#"><i class="fa fa-check"></i></a></li>
+                                */
+    firebase.database().ref('users/'+gender).once('value', function(snapshot) {
+        var cunt=document.getElementsByClassName('owl-stage')[0];
+        cunt.setAttribute("style","transform: translate3d(-818.001px, 0px, 0px); transition: all 1.8s ease 0s; width: 3272px;")
+  snapshot.forEach(function(childSnapshot) {
+    var childData = childSnapshot.val();
+    console.log(childData)
+   
+    let owlitemdiv = document.createElement("div");
+    owlitemdiv.setAttribute("class", "owl-item");
+    owlitemdiv.setAttribute("style","width: 272.667px; margin-right: 0px;")
+    cunt.appendChild(owlitemdiv)
 
+    let itemdiv = document.createElement("div");
+    itemdiv.setAttribute("class", "item");
+    owlitemdiv.appendChild(itemdiv)
+    let singleblog = document.createElement("div");
+    singleblog.setAttribute("class", "single_blog_slider");
+    itemdiv.appendChild(singleblog);
+    let imgsr = document.createElement("img");
+    imgsr.setAttribute("src", "img/blog/blog_slider/a.jpg");
+    singleblog.appendChild(imgsr);
+    let itmcontent = document.createElement("div");
+    itmcontent.setAttribute("class", "blog_item_content");
+    singleblog.appendChild(itmcontent);
+    let head4 = document.createElement("h4");
+    head4.innerText=childSnapshot.val().name;
+    itmcontent.appendChild(head4)
+    let head5 = document.createElement("h5");
+    head5.innerText=childSnapshot.val().dob;
+    itmcontent.appendChild(head5);
+    let ull = document.createElement("ul");
+    itmcontent.appendChild(ull)
+    let li1 = document.createElement("li");
+    ull.appendChild(li1)
+    let a1=document.createElement("a");
+    a1.setAttribute("href","#")
+    let i1=document.createElement("i");
+    i1.setAttribute("class","fa fa-times")
+    a1.appendChild(i1);
 
+    let li2 = document.createElement("li");
+    ull.appendChild(li2)
+    let a2=document.createElement("a");
+    a2.setAttribute("href","#")
+    let i2=document.createElement("i");
+    i2.setAttribute("class","fa fa-check")
+    a2.appendChild(i2);
+
+    // ...
+  });
+});
+  }
   firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
 // User is signed in.
 console.log(user.uid);
 console.log("User Logged In")
+getGender(user.uid)
+
 } else {
 // No user is signed in.
 console.log("User Logged Out")
@@ -266,20 +337,8 @@ alert("User Logged Out")
         
         <!--================Blog slider Area =================-->
         <section class="blog_slider_area" style="margin-top: 150px;">
-            <div class="blog_slider_inner">
-                <div class="item">
-                    <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/a.jpg" alt="">
-                        <div class="blog_item_content">
-                            <h4>25</h4>
-                            <h5>0.35 KMs away</h5>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class="blog_slider_inner" id="cunt">
+               
                 
                
             </div>
