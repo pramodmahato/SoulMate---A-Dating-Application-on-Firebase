@@ -54,7 +54,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
     firebase.database().ref('users/'+gender).once('value', function(snapshot) {
         var cunt=document.getElementsByClassName('owl-stage')[0];
-        cunt.setAttribute("style","transform: translate3d(-818.001px, 0px, 0px); transition: all 1.8s ease 0s; width: 3272px;")
+        cunt.setAttribute("style","transform: translate3d(-18.001px, 0px, 0px); transition: all 1.8s ease 0s; width: 3272px;")
   snapshot.forEach(function(childSnapshot) {
     var childData = childSnapshot.val();
     console.log(childData)
