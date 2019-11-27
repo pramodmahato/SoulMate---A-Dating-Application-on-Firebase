@@ -59,7 +59,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     console.log(childData)
    
     let owlitemdiv = document.createElement("div");
-    owlitemdiv.setAttribute("class", "owl-item");
+    owlitemdiv.setAttribute("class", "owl-item clone");
     owlitemdiv.setAttribute("style","width: 272.667px; margin-right: 0px;")
     cunt.appendChild(owlitemdiv)
 
@@ -90,7 +90,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     let i1=document.createElement("i");
     i1.setAttribute("class","fa fa-times")
     a1.appendChild(i1);
-
+    li1.appendChild(a1)
     let li2 = document.createElement("li");
     ull.appendChild(li2)
     let a2=document.createElement("a");
@@ -98,6 +98,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     let i2=document.createElement("i");
     i2.setAttribute("class","fa fa-check")
     a2.appendChild(i2);
+    li2.appendChild(a2)
 
     // ...
   });
