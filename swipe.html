@@ -17,6 +17,8 @@
 <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
 <script>
+    var requiredgender='';
+    var currentUid='';
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -39,7 +41,14 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
         let gen=snapshot.val().gender;
         console.log(gen)
         gen=="Male"? getUsers('Female'):getUsers('Male')
+        requiredgender=gen=="Male"? 'Female':'Male'
+        console.log('Required Gender: '+requiredgender)
 });
+  }
+  function choose(id){
+      console.log("The ID is: "+id)
+      database.ref('users/'+requiredgender+"/"+id+"/requests/"+currentUid).set({'request': 'true'});
+              //  isConnectionMatch(userId);
   }
   function getUsers(gender){
 
@@ -87,6 +96,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     ull.appendChild(li2)
     let a2=document.createElement("a");
     a2.setAttribute("href","#")
+    a2.setAttribute("onclick","choose('"+childSnapshot.key+"')")
     let i2=document.createElement("i");
     i2.setAttribute("class","fa fa-check")
     a2.appendChild(i2);
@@ -99,8 +109,9 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
  
   firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
-    console.log(use.uid)
+    console.log(user.uid)
     getGender(user.uid)
+    currentUid=user.uid;
 } else {
 // No user is signed in.
 console.log("User Logged Out")
