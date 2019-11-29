@@ -19,6 +19,9 @@
 <script>
     var requiredgender='';
     var currentUid='';
+    var currName='';
+    var currDob='';
+    var currGen='';
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -35,6 +38,13 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
   const firebaseAppAuth = firebaseApp.auth();
   var database = firebase.database();
 
+function getUserDetail(uid,gen){
+    firebase.database().ref('users/'+gen+"/"+ uid).once('value').then(function(snapshot) {
+        currName=snapshot.val().name;
+        currDob=snapshot.val().dob;
+        currGen=snapshot.val().gender;
+});
+}
 
   function getGender(uid){
     firebase.database().ref('genders/' + uid).once('value').then(function(snapshot) {
@@ -43,11 +53,12 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
         gen=="Male"? getUsers('Female'):getUsers('Male')
         requiredgender=gen=="Male"? 'Female':'Male'
         console.log('Required Gender: '+requiredgender)
+        getUserDetail(uid,gen)
 });
   }
-  function choose(id){
+  function choose(id,name,dob){
       console.log("The ID is: "+id)
-      database.ref('users/'+requiredgender+"/"+id+"/requests/"+currentUid).set({'request': 'true'});
+      database.ref('users/'+requiredgender+"/"+id+"/requests/"+currentUid).set({'request': 'true', 'name':currName,'dob':currDob, 'gender':currGen});
               //  isConnectionMatch(userId);
   }
   function getUsers(gender){
@@ -96,7 +107,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     ull.appendChild(li2)
     let a2=document.createElement("a");
     a2.setAttribute("href","#")
-    a2.setAttribute("onclick","choose('"+childSnapshot.key+"')")
+    a2.setAttribute("onclick","choose('"+childSnapshot.key+"','"+childSnapshot.val().name+"','"+childSnapshot.val().dob+"')")
     let i2=document.createElement("i");
     i2.setAttribute("class","fa fa-check")
     a2.appendChild(i2);
