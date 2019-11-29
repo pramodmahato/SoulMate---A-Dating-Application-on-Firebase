@@ -9,6 +9,63 @@
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>VeroDate - Dating Social Network Website</title>
+        <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+       
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+<script>
+   
+    var currentUid='';
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
+    authDomain: "india-datingapp.firebaseapp.com",
+    databaseURL: "https://india-datingapp.firebaseio.com",
+    projectId: "india-datingapp",
+    storageBucket: "india-datingapp.appspot.com",
+    messagingSenderId: "679658777666",
+    appId: "1:679658777666:web:7b52152b72b7cac11e51db",
+    measurementId: "G-4H9857GNPS"
+  };
+  // Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+  const firebaseAppAuth = firebaseApp.auth();
+  var database = firebase.database();
+
+  function getRequests(uid){
+    firebase.database().ref('genders/'+uid).once('value').then(function(snapshot) {
+        var gen=snapshot.val().gender;
+        console.log(gen)
+        database.ref('users/'+gen+"/"+uid+"/requests").once('value', function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    var childKey = childSnapshot.key;
+    var childData = childSnapshot.val();
+    console.log(childKey)
+    // ...
+  });
+});
+});
+
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+if (user) {
+    console.log(user.uid)
+    getRequests(user.uid)
+    currentUid=user.uid;
+} else {
+// No user is signed in.
+console.log("User Logged Out")
+window.location.href="index-2.html"
+
+}
+});
+  </script>
 
         <!-- Icon css link -->
         <link href="vendors/material-icon/css/materialdesignicons.min.css" rel="stylesheet">
@@ -225,323 +282,7 @@
         <!--================End Banner Area =================-->
         
         <!--================Advanced Search Area =================-->
-        <section class="advanced_search_area">
-            <div class="container">
-                <div class="welcome_white_title">
-                    <h3>Search People Here</h3>
-                    <img src="img/w-title-b.png" alt="">
-                </div>
-                <div class="search_option">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Looks</a></li>
-                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Background</a></li>
-                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Availability</a></li>
-                        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Personality</a></li>
-                        <li role="presentation"><a href="#vices" aria-controls="vices" role="tab" data-toggle="tab">Vices</a></li>
-                        <li role="presentation"><a href="#ques" aria-controls="ques" role="tab" data-toggle="tab">Questions</a></li>
-                        <li role="presentation"><a href="#more" aria-controls="more" role="tab" data-toggle="tab">More</a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="home">
-                            <div class="height_item">
-                                <h4>Height</h4>
-                                <select class="selectpicker">
-                                    <option>158 Cm</option>
-                                    <option>168 Cm</option>
-                                    <option>175 Cm</option>
-                                </select>
-                                <select class="selectpicker">
-                                    <option>192 Cm</option>
-                                    <option>198 Cm</option>
-                                    <option>200 Cm</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>Body Type</h4>
-                                <select class="selectpicker">
-                                    <option>Full Figured</option>
-                                    <option>Half Figured</option>
-                                    <option>Full Figured</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h5>Attractiveness</h5>
-                                <div class="item_average">
-                                    <div class="average"></div>
-                                    <label for="amount">Average</label>
-                                </div>
-                                <div class="item_average">
-                                    <div class="average"></div>
-                                    <label for="amount">Above Avg</label>
-                                </div>
-                                <div class="item_average">
-                                    <div class="average"></div>
-                                    <label for="amount">Hot</label>
-                                </div>
-                            </div>
-                            <div class="search_btn">
-                                <a href="#" class="register_angkar_btn">Search</a>
-                                <a href="#" class="white_angkar_btn">Reset</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="profile">
-                            <div class="height_item">
-                                <h4>Height</h4>
-                                <select class="selectpicker">
-                                    <option>158 Cm</option>
-                                    <option>168 Cm</option>
-                                    <option>175 Cm</option>
-                                </select>
-                                <select class="selectpicker">
-                                    <option>192 Cm</option>
-                                    <option>198 Cm</option>
-                                    <option>200 Cm</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>Body Type</h4>
-                                <select class="selectpicker">
-                                    <option>Full Figured</option>
-                                    <option>Half Figured</option>
-                                    <option>Full Figured</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h5>Attractiveness</h5>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Average</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Above Avg</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Hot</h6>
-                                </div>
-                            </div>
-                            <div class="search_btn">
-                                <a href="#" class="register_angkar_btn">Search</a>
-                                <a href="#" class="white_angkar_btn">Reset</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="messages">
-                            <div class="height_item">
-                                <h4>Height</h4>
-                                <select class="selectpicker">
-                                    <option>158 Cm</option>
-                                    <option>168 Cm</option>
-                                    <option>175 Cm</option>
-                                </select>
-                                <select class="selectpicker">
-                                    <option>192 Cm</option>
-                                    <option>198 Cm</option>
-                                    <option>200 Cm</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>Body Type</h4>
-                                <select class="selectpicker">
-                                    <option>Full Figured</option>
-                                    <option>Half Figured</option>
-                                    <option>Full Figured</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h5>Attractiveness</h5>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Average</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Above Avg</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Hot</h6>
-                                </div>
-                            </div>
-                            <div class="search_btn">
-                                <a href="#" class="register_angkar_btn">Search</a>
-                                <a href="#" class="white_angkar_btn">Reset</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="settings">
-                            <div class="height_item">
-                                <h4>Height</h4>
-                                <select class="selectpicker">
-                                    <option>158 Cm</option>
-                                    <option>168 Cm</option>
-                                    <option>175 Cm</option>
-                                </select>
-                                <select class="selectpicker">
-                                    <option>192 Cm</option>
-                                    <option>198 Cm</option>
-                                    <option>200 Cm</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>Body Type</h4>
-                                <select class="selectpicker">
-                                    <option>Full Figured</option>
-                                    <option>Half Figured</option>
-                                    <option>Full Figured</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h5>Attractiveness</h5>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Average</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Above Avg</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Hot</h6>
-                                </div>
-                            </div>
-                            <div class="search_btn">
-                                <a href="#" class="register_angkar_btn">Search</a>
-                                <a href="#" class="white_angkar_btn">Reset</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="vices">
-                            <div class="height_item">
-                                <h4>Height</h4>
-                                <select class="selectpicker">
-                                    <option>158 Cm</option>
-                                    <option>168 Cm</option>
-                                    <option>175 Cm</option>
-                                </select>
-                                <select class="selectpicker">
-                                    <option>192 Cm</option>
-                                    <option>198 Cm</option>
-                                    <option>200 Cm</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>Body Type</h4>
-                                <select class="selectpicker">
-                                    <option>Full Figured</option>
-                                    <option>Half Figured</option>
-                                    <option>Full Figured</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h5>Attractiveness</h5>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Average</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Above Avg</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Hot</h6>
-                                </div>
-                            </div>
-                            <div class="search_btn">
-                                <a href="#" class="register_angkar_btn">Search</a>
-                                <a href="#" class="white_angkar_btn">Reset</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="ques">
-                            <div class="height_item">
-                                <h4>Height</h4>
-                                <select class="selectpicker">
-                                    <option>158 Cm</option>
-                                    <option>168 Cm</option>
-                                    <option>175 Cm</option>
-                                </select>
-                                <select class="selectpicker">
-                                    <option>192 Cm</option>
-                                    <option>198 Cm</option>
-                                    <option>200 Cm</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>Body Type</h4>
-                                <select class="selectpicker">
-                                    <option>Full Figured</option>
-                                    <option>Half Figured</option>
-                                    <option>Full Figured</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h5>Attractiveness</h5>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Average</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Above Avg</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Hot</h6>
-                                </div>
-                            </div>
-                            <div class="search_btn">
-                                <a href="#" class="register_angkar_btn">Search</a>
-                                <a href="#" class="white_angkar_btn">Reset</a>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="more">
-                            <div class="height_item">
-                                <h4>Height</h4>
-                                <select class="selectpicker">
-                                    <option>158 Cm</option>
-                                    <option>168 Cm</option>
-                                    <option>175 Cm</option>
-                                </select>
-                                <select class="selectpicker">
-                                    <option>192 Cm</option>
-                                    <option>198 Cm</option>
-                                    <option>200 Cm</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>Body Type</h4>
-                                <select class="selectpicker">
-                                    <option>Full Figured</option>
-                                    <option>Half Figured</option>
-                                    <option>Full Figured</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h5>Attractiveness</h5>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Average</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Above Avg</h6>
-                                </div>
-                                <div class="item_average">
-                                    <div class="border"><span></span></div>
-                                    <h6>Hot</h6>
-                                </div>
-                            </div>
-                            <div class="search_btn">
-                                <a href="#" class="register_angkar_btn">Search</a>
-                                <a href="#" class="white_angkar_btn">Reset</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+      
         <!--================End Advanced Search Area =================-->
         
         <!--================End Advanced Search Area =================-->

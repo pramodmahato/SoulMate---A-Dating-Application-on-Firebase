@@ -17,6 +17,8 @@
 <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
 
 <script>
+    var requiredgender='';
+    var currentUid='';
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -32,28 +34,27 @@
 const firebaseApp = firebase.initializeApp(firebaseConfig);
   const firebaseAppAuth = firebaseApp.auth();
   var database = firebase.database();
+
+
   function getGender(uid){
     firebase.database().ref('genders/' + uid).once('value').then(function(snapshot) {
         let gen=snapshot.val().gender;
         console.log(gen)
         gen=="Male"? getUsers('Female'):getUsers('Male')
+        requiredgender=gen=="Male"? 'Female':'Male'
+        console.log('Required Gender: '+requiredgender)
 });
+  }
+  function choose(id){
+      console.log("The ID is: "+id)
+      database.ref('users/'+requiredgender+"/"+id+"/requests/"+currentUid).set({'request': 'true'});
+              //  isConnectionMatch(userId);
   }
   function getUsers(gender){
 
-      /*<div class="item">
-                    <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/a.jpg" alt="">
-                        <div class="blog_item_content">
-                            <h4>25</h4>
-                            <h5>0.35 KMs away</h5>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
-                                */
     firebase.database().ref('users/'+gender).once('value', function(snapshot) {
         var cunt=document.getElementsByClassName('owl-stage')[0];
-        cunt.setAttribute("style","transform: translate3d(-818.001px, 0px, 0px); transition: all 1.8s ease 0s; width: 3272px;")
+        cunt.setAttribute("style","transform: translate3d(-18.001px, 0px, 0px); transition: all 1.8s ease 0s; width: 3272px;")
   snapshot.forEach(function(childSnapshot) {
     var childData = childSnapshot.val();
     console.log(childData)
@@ -104,6 +105,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
     ull.appendChild(li2)
     let a2=document.createElement("a");
     a2.setAttribute("href","#")
+    a2.setAttribute("onclick","choose('"+childSnapshot.key+"')")
     let i2=document.createElement("i");
     i2.setAttribute("class","fa fa-check")
     a2.appendChild(i2);
@@ -113,16 +115,16 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
   });
 });
   }
+ 
   firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
-// User is signed in.
-console.log(user.uid);
-console.log("User Logged In")
-getGender(user.uid)
-
+    console.log(user.uid)
+    getGender(user.uid)
+    currentUid=user.uid;
 } else {
 // No user is signed in.
 console.log("User Logged Out")
+window.location.href="index-2.html"
 
 }
 });
