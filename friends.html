@@ -21,8 +21,6 @@
 <script>
    
     var currentUid='';
-    var currName='';
-    var currDob;
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -47,38 +45,33 @@ var currGen='';
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
                                     */
-function choose(id,name,dob){
+/*function choose(id){
     alert("You chose: "+id);
     console.log("Chose: "+id);
     let abhi= Date.now()
     let oppgender=currGen=="Male"? 'Female':'Male'
-    database.ref('friends/'+id+"/"+currentUid).set({'timestamp':abhi,'name':currName,'dob':currDob});
-    database.ref('friends/'+currentUid+"/"+id).set({'timestamp':abhi,'name':name,'dob':dob});
+    database.ref('friends/'+id+"/"+currentUid).set({'timestamp':abhi});
+    database.ref('friends/'+currentUid+"/"+id).set({'timestamp':abhi});
 
    // database.ref('users/'+id+"/requests/"+currentUid).delete();
     database.ref('users/'+currGen+"/"+currentUid+"/requests/"+id).remove();
 
               //  isConnectionMatch(userId);
 
-}
-  function getRequests(uid){
+}*/
+  function getUsers(uid){
     firebase.database().ref('genders/'+uid).once('value').then(function(snapshot) {
-        var gen=snapshot.val().gender;
+        /*var gen=snapshot.val().gender;
         currGen=gen;
-        console.log(gen)
-
-        database.ref('users/'+gen+"/"+uid).once('value', function(snapshot) {
-            currName=snapshot.val().name;
-            currDob=snapshot.val().dob;
-});
-
-        database.ref('users/'+gen+"/"+uid+"/requests").once('value', function(snapshot) {
+        console.log(gen)*/
+        database.ref('friends/'+currentUid).once('value', function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     var childKey = childSnapshot.key;
     
     var childData = childSnapshot.val();
     console.log(childKey)
     console.log(childData)
+   
     var cm=document.createElement("div");
     cm.setAttribute("class","col-md-2")
     var ami=document.createElement("div");
@@ -98,11 +91,10 @@ function choose(id,name,dob){
     a1.setAttribute("class","dropdown-toggle")
     a1.setAttribute("data-toggle","dropdown")
     a1.setAttribute("role","button")
-    a1.setAttribute("onclick","choose('"+childKey+"','"+childData.name+"','"+childData.dob+"')")
+    a1.setAttribute("onclick","choose('"+childKey+"')")
     a1.setAttribute("aria-haspopup","true")
     a1.setAttribute("aria-expanded","false")
     dtl.append(a1);
-
     var img1=document.createElement("img");
     img1.setAttribute("class","img-circle");
     img1.setAttribute("src","img/members/active-mem/active-mem-2.png")
@@ -128,7 +120,7 @@ function choose(id,name,dob){
   firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
     console.log(user.uid)
-    getRequests(user.uid)
+    getUsers(user.uid)
     currentUid=user.uid;
 } else {
 // No user is signed in.
@@ -345,9 +337,9 @@ window.location.href="index-2.html"
         <section class="banner_area">
             <div class="container">
                 <div class="banner_content">
-                    <h3 title="Matches"><img class="left_img" src="img/banner/t-left-img.png" alt="">Matches<img class="right_img" src="img/banner/t-right-img.png" alt=""></h3>
+                    <h3 title="Friends"><img class="left_img" src="img/banner/t-left-img.png" alt="">Friends<img class="right_img" src="img/banner/t-right-img.png" alt=""></h3>
                     <a href="index.html">Home</a>
-                    <a href="matches.html">Matches</a>
+                    <a href="matches.html">Friends</a>
                 </div>
             </div>
         </section>

@@ -32,6 +32,7 @@
   };
   // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+var storage = firebase.storage();
   const firebaseAppAuth = firebaseApp.auth();
 
   firebase.auth().onAuthStateChanged(function(user) {
