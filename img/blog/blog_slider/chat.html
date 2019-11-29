@@ -1,0 +1,269 @@
+
+<!-- saved from url=(0031)http://127.0.0.1:5500/chat.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link href="./chat_files/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="./chat_files/bootstrap.min.js.download"></script>
+<script src="./chat_files/jquery-1.11.1.min.js.download"></script>
+<link rel="stylesheet" href="./chat_files/chat.css">
+<link rel="stylesheet" href="./chat_files/font-awesome.min.css">
+
+<script src="./chat_files/list.min.js.download"></script>
+        <script src="./chat_files/jquery.min.js.download"></script>
+        <script src="./chat_files/handlebars.min.js.download"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+
+    </head><body style="background-image: url(img/slider-img/slider7.jpg);">
+        <div class="container clearfix">
+             
+                
+                <div class="chat">
+                  <div class="chat-header clearfix">
+                    <img src="./chat_files/chat_avatar_01_green.jpg" alt="avatar">
+                    
+                    <div class="chat-about">
+                      <div class="chat-with">Chat with Vincent Porter</div>
+                      <div class="chat-num-messages">already 1 902 messages</div>
+                    </div>
+                    <i class="fa fa-star"></i>
+                  </div> <!-- end chat-header -->
+                  
+                  <div class="chat-history">
+                    <ul>
+                      <li class="clearfix">
+                        <div class="message-data align-right">
+                          <span class="message-data-time">10:10 AM, Today</span> &nbsp; &nbsp;
+                          <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
+                          
+                        </div>
+                        <div class="message other-message " style="margin-right:10%;">
+                          Hi Vincent, how are you? How is the project coming along?
+                        </div>
+                      </li>
+                      
+                      <li>
+                        <div class="message-data">
+                          <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                          <span class="message-data-time">10:12 AM, Today</span>
+                        </div>
+                        <div class="message my-message">
+                          Are we meeting today? Project has been already finished and I have results to show you.
+                        </div>
+                      </li>
+                      
+                      <li class="clearfix">
+                        <div class="message-data align-right">
+                          <span class="message-data-time">10:14 AM, Today</span> &nbsp; &nbsp;
+                          <span class="message-data-name">Olia</span> <i class="fa fa-circle me"></i>
+                          
+                        </div>
+                        <div class="message other-message float-right">
+                          Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
+                        </div>
+                      </li>
+                      
+                      <li>
+                        <div class="message-data">
+                          <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                          <span class="message-data-time">10:20 AM, Today</span>
+                        </div>
+                        <div class="message my-message">
+                          Actually everything was fine. I'm very excited to show this to our team.
+                        </div>
+                      </li>
+                      
+                      <li>
+                        <div class="message-data">
+                          <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                          <span class="message-data-time">10:31 AM, Today</span>
+                        </div>
+                        <i class="fa fa-circle online"></i>
+                        <i class="fa fa-circle online" style="color: #AED2A6"></i>
+                        <i class="fa fa-circle online" style="color:#DAE9DA"></i>
+                      </li>
+                      
+                    </ul>
+                    
+                  </div> <!-- end chat-history -->
+                  
+                  <div class="chat-message clearfix">
+                    <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"></textarea>
+                            
+                    <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-file-image-o"></i>
+                    
+                    <button>Send</button>
+            
+                  </div> <!-- end chat-message -->
+                  
+                </div> <!-- end chat -->
+                
+              </div> <!-- end container -->
+            
+            <script id="message-template" type="text/x-handlebars-template">
+              <li class="clearfix">
+                <div class="message-data align-right">
+                  <span class="message-data-time" >{{time}}, Today</span> &nbsp; &nbsp;
+                  <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+                </div>
+                <div class="message other-message float-right">
+                  {{messageOutput}}
+                </div>
+              </li>
+            </script>
+            
+            <script id="message-response-template" type="text/x-handlebars-template">
+              <li>
+                <div class="message-data">
+                  <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                  <span class="message-data-time">{{time}}, Today</span>
+                </div>
+                <div class="message my-message">
+                  {{response}}
+                </div>
+              </li>
+            </script>
+            
+    <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+    <script>
+        (function(){
+  
+  var chat = {
+    messageToSend: '',
+    messageResponses: [
+      'Why did the web developer leave the restaurant? Because of the table layout.',
+      'How do you comfort a JavaScript bug? You console it.',
+      'An SQL query enters a bar, approaches two tables and asks: "May I join you?"',
+      'What is the most used language in programming? Profanity.',
+      'What is the object-oriented way to become wealthy? Inheritance.',
+      'An SEO expert walks into a bar, bars, pub, tavern, public house, Irish pub, drinks, beer, alcohol'
+    ],
+    init: function() {
+      this.cacheDOM();
+      this.bindEvents();
+      this.render();
+    },
+    cacheDOM: function() {
+      this.$chatHistory = $('.chat-history');
+      this.$button = $('button');
+      this.$textarea = $('#message-to-send');
+      this.$chatHistoryList =  this.$chatHistory.find('ul');
+    },
+    bindEvents: function() {
+      this.$button.on('click', this.addMessage.bind(this));
+      this.$textarea.on('keyup', this.addMessageEnter.bind(this));
+    },
+    render: function() {
+      this.scrollToBottom();
+      if (this.messageToSend.trim() !== '') {
+        var template = Handlebars.compile( $("#message-template").html());
+        var context = { 
+          messageOutput: this.messageToSend,
+          time: this.getCurrentTime()
+        };
+
+        this.$chatHistoryList.append(template(context));
+        this.scrollToBottom();
+        this.$textarea.val('');
+        
+        // responses
+        var templateResponse = Handlebars.compile( $("#message-response-template").html());
+        var contextResponse = { 
+          response: this.getRandomItem(this.messageResponses),
+          time: this.getCurrentTime()
+        };
+        
+        setTimeout(function() {
+          this.$chatHistoryList.append(templateResponse(contextResponse));
+          this.scrollToBottom();
+        }.bind(this), 1500);
+        
+      }
+      
+    },
+    
+    addMessage: function() {
+      this.messageToSend = this.$textarea.val()
+      this.render();         
+    },
+    addMessageEnter: function(event) {
+        // enter was pressed
+        if (event.keyCode === 13) {
+          this.addMessage();
+        }
+    },
+    scrollToBottom: function() {
+       this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
+    },
+    getCurrentTime: function() {
+      return new Date().toLocaleTimeString().
+              replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+    },
+    getRandomItem: function(arr) {
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+    
+  };
+  
+  chat.init();
+  
+  var searchFilter = {
+    options: { valueNames: ['name'] },
+    init: function() {
+      var userList = new List('people-list', this.options);
+      var noItems = $('<li id="no-items-found">No items found</li>');
+      
+      userList.on('updated', function(list) {
+        if (list.matchingItems.length === 0) {
+          $(list.list).append(noItems);
+        } else {
+          noItems.detach();
+        }
+      });
+    }
+  };
+  
+  searchFilter.init();
+  
+})();
+
+    </script>
+
+</body></html>
