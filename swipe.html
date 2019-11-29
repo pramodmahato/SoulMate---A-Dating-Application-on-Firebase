@@ -19,9 +19,6 @@
 <script>
     var requiredgender='';
     var currentUid='';
-    var currName='';
-    var currDob='';
-    var currGen='';
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -38,13 +35,6 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
   const firebaseAppAuth = firebaseApp.auth();
   var database = firebase.database();
 
-function getUserDetail(uid,gen){
-    firebase.database().ref('users/'+gen+"/"+ uid).once('value').then(function(snapshot) {
-        currName=snapshot.val().name;
-        currDob=snapshot.val().dob;
-        currGen=snapshot.val().gender;
-});
-}
 
   function getGender(uid){
     firebase.database().ref('genders/' + uid).once('value').then(function(snapshot) {
@@ -53,12 +43,11 @@ function getUserDetail(uid,gen){
         gen=="Male"? getUsers('Female'):getUsers('Male')
         requiredgender=gen=="Male"? 'Female':'Male'
         console.log('Required Gender: '+requiredgender)
-        getUserDetail(uid,gen)
 });
   }
-  function choose(id,name,dob){
+  function choose(id){
       console.log("The ID is: "+id)
-      database.ref('users/'+requiredgender+"/"+id+"/requests/"+currentUid).set({'request': 'true', 'name':currName,'dob':currDob, 'gender':currGen});
+      database.ref('users/'+requiredgender+"/"+id+"/requests/"+currentUid).set({'request': 'true'});
               //  isConnectionMatch(userId);
   }
   function getUsers(gender){
@@ -71,18 +60,9 @@ function getUserDetail(uid,gen){
     console.log(childData)
    
     let owlitemdiv = document.createElement("div");
-    
-    
-        
-    owlitemdiv.setAttribute("class", "owl-item cloned");
+    owlitemdiv.setAttribute("class", "owl-item clone");
     owlitemdiv.setAttribute("style","width: 272.667px; margin-right: 0px;")
     cunt.appendChild(owlitemdiv)
-
-
-   
-        
-    
-   
 
     let itemdiv = document.createElement("div");
     itemdiv.setAttribute("class", "item");
@@ -116,7 +96,7 @@ function getUserDetail(uid,gen){
     ull.appendChild(li2)
     let a2=document.createElement("a");
     a2.setAttribute("href","#")
-    a2.setAttribute("onclick","choose('"+childSnapshot.key+"','"+childSnapshot.val().name+"','"+childSnapshot.val().dob+"')")
+    a2.setAttribute("onclick","choose('"+childSnapshot.key+"')")
     let i2=document.createElement("i");
     i2.setAttribute("class","fa fa-check")
     a2.appendChild(i2);
@@ -284,15 +264,19 @@ alert("User Logged Out")
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index-2.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
+                    <a class="navbar-brand" href="index.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown submenu active">
-                            <a href="index-2.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                            
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="index.html">Home 01</a></li>
+                                <li><a href="index-2.html">Home 02</a></li>
+                                <li><a href="index-3.html">Home 03</a></li>
+                            </ul>
                         </li>
                         <li class="dropdown submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Message</a>
@@ -355,7 +339,7 @@ alert("User Logged Out")
        
         
         <!--================Blog slider Area =================-->
-        <section class="blog_slider_area" style="margin-top: 100px;">
+        <section class="blog_slider_area" style="margin-top: 150px;">
             <div class="blog_slider_inner" id="cunt">
                
                 

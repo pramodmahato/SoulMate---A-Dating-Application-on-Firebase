@@ -1,162 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     
-    <style type="text/css">
-        .single_blog_slider{
-            max-height: 320px;
-        }
-    </style>
-<!-- Mirrored from html.verodate.com/verodate/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:50:06 GMT -->
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
-       
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-
-<script>
-    var latitude="";
-    var longitude="";
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
-    authDomain: "india-datingapp.firebaseapp.com",
-    databaseURL: "https://india-datingapp.firebaseio.com",
-    projectId: "india-datingapp",
-    storageBucket: "india-datingapp.appspot.com",
-    messagingSenderId: "679658777666",
-    appId: "1:679658777666:web:7b52152b72b7cac11e51db",
-    measurementId: "G-4H9857GNPS"
-  };
-  // Initialize Firebase
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-  const firebaseAppAuth = firebaseApp.auth();
-
-  firebase.auth().onAuthStateChanged(function(user) {
-if (user) {
-// User is signed in.
-console.log(user.uid);
-console.log("User Logged In")
-} else {
-// No user is signed in.
-console.log("User Logged Out")
-}
-});
-
-  firebase.analytics();
-</script>
-<script>
-    function showPosition(position) {
-  console.log("Latitude: " + position.coords.latitude + 
-  " Longitude: " + position.coords.longitude);
-  latitude=position.coords.latitude;
-  longitude=position.coords.longitude;
-}
-
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.")
-      break;
-    case error.POSITION_UNAVAILABLE:
-    alert("Location information is unavailable.")
-      break;
-    case error.TIMEOUT:
-    alert("The request to get user location timed out.")
-      break;
-    case error.UNKNOWN_ERROR:
-    alert("An unknown error occurred.")
-      break;
-  }
-}
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-  } else { 
-    alert("Geolocation is not supported by this browser.");
-  }
-    function writeUserData(uid, name, dob, genderval) {
-        console.log(uid);
-        console.log(name);
-        console.log(dob);
-  firebase.database().ref('users/'+genderval+'/'+uid).set({
-    name: name,
-    dob: dob,
-    profile_picture : 'avatar.jpg',
-    gender: genderval,
-    latitude:latitude,
-    longitude:longitude
-  });
-  firebase.database().ref('genders/'+uid).set({
-    gender: genderval,
-  });
-}
-    function signOut(){
-        firebase.auth().signOut().then(function() {
-// Sign-out successful.
-alert("User Logged Out")
-}).catch(function(error) {
-// An error happened.
-});
-    }
-    function createUser(){
-        let email=document.getElementById('reg_email').value;
-        let password=document.getElementById('reg_pass').value;
-        var name=document.getElementById('reg_name').value;
-        var dob=document.getElementById('dob').value;
-        var genderval=document.getElementById('genderdata').innerText;
-        console.log(email);
-        console.log(password);
-        firebaseAppAuth.createUserWithEmailAndPassword(email, password).then(
-  (user)=>{
- // here you can use either the returned user object or       firebase.auth().currentUser. I will use the returned user object
-    if(user){
-    
-     writeUserData(user.user.uid,name,dob,genderval)
-     alert("Registered Succesfully!")
-    }
-}).catch(function(error) {
-// Handle Errors here.
-var errorCode = error.code;
-var errorMessage = error.message;
-console.log(errorMessage);
-return false;
-// ...
-});
-//writeUserData(email,name,dob);
-    }
-    function signIn(){
-        let email=document.getElementById('login_username').value;
-        let password=document.getElementById('login_password').value;
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(
-  (user)=>{
- // here you can use either the returned user object or       firebase.auth().currentUser. I will use the returned user object
-    if(user){
-        window.location.href="swipe.html"
-    }
-    else{
-        alert("Couldn't Log In")
-    }
-}).catch(function(error) {
-// Handle Errors here.
-var errorCode = error.code;
-var errorMessage = error.message;
-alert(errorMessage)
-
-// ...
-});
-
-}
-</script>
+<!-- Mirrored from html.verodate.com/verodate/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:47:45 GMT -->
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>SoulMate - Dating Social Network Website</title>
+        <title>VeroDate - Dating Social Network Website</title>
 
         <!-- Icon css link -->
         <link href="vendors/material-icon/css/materialdesignicons.min.css" rel="stylesheet">
@@ -187,7 +39,7 @@ alert(errorMessage)
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
        
         <script src="js/map-custome.js"></script>
-        
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -199,11 +51,10 @@ alert(errorMessage)
        <div class="login_form_inner zoom-anim-dialog mfp-hide" id="small-dialog">
            <h4>User Login</h4>
            <form>
-               <input type="text" placeholder="Username" id="login_username">
-               <input type="password" placeholder="Password" id="login_password">
+               <input type="text" placeholder="Username">
+               <input type="password" placeholder="Password">
                <div class="login_btn_area">
-                   <button type="button" onclick="signIn()" value="LogIn" class="btn form-control login_btn">Log In </button>
-                   <button type="button" onclick="signOut()" value="LogOut" class="btn form-control login_btn">Log Out</button>
+                   <button type="submit" value="LogIn" class="btn form-control login_btn">LogIn</button>
                    <div class="login_social">
                        <h5>Login With</h5>
                        <ul>
@@ -220,7 +71,7 @@ alert(errorMessage)
             <div class="row">
                 <div class="col-md-6">
                     <div class="registration_man">
-                        <img src="img/coup.png" alt="">
+                        <img src="img/Registration_man.png" alt="">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -231,7 +82,10 @@ alert(errorMessage)
                                 <input type="email" class="form-control" id="reg_email" placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="reg_name" placeholder="Full Name">
+                                <input type="text" class="form-control" id="reg_first" placeholder="Full Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="reg_user" placeholder="Username">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="reg_pass" placeholder="Password">
@@ -239,7 +93,7 @@ alert(errorMessage)
                             <div class="form-group">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    <span data-bind="label" id="genderdata">Gender</span>&nbsp;<span class="arrow_carrot-down"><i class="fa fa-sort-asc" aria-hidden="true"></i><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
+                                    <span data-bind="label">Gender</span>&nbsp;<span class="arrow_carrot-down"><i class="fa fa-sort-asc" aria-hidden="true"></i><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#">Male</a></li>
@@ -249,7 +103,7 @@ alert(errorMessage)
                             </div>
                             <div class="form-group">
                                 <div class="datepicker">
-                                    <input type='text' class="form-control datetimepicker4" placeholder="Birthday" id="dob" />
+                                    <input type='text' class="form-control datetimepicker4" placeholder="Birthday" />
                                     <span class="add-on"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                 </div>
                             </div>
@@ -259,7 +113,7 @@ alert(errorMessage)
                                     <label for="s-option">I`m Not Robot</label>
                                     <div class="check"><div class="inside"></div></div>
                                 </div>
-                                <button type="button" onclick="createUser()" value="LogIn" class="btn form-control login_btn">Register</button>
+                                <button type="submit" value="LogIn" class="btn form-control login_btn">Register</button>
                             </div>
                         </form>
                         <img class="mfp-close" src="img/close-btn.png" alt="">
@@ -269,7 +123,7 @@ alert(errorMessage)
         </div>
        
         <!--================Frist Main hader Area =================-->
-        <header class="header_menu_area">
+        <header class="header_menu_area white_menu">
             <nav class="navbar navbar-default">
                 <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -280,7 +134,7 @@ alert(errorMessage)
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
+                    <a class="navbar-brand" href="index.html"><img src="img/logo-2.png" alt=""></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -295,9 +149,9 @@ alert(errorMessage)
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Message</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
                             <ul class="dropdown-menu">
-                                <li><a href="blog.html">Message</a></li>
+                                <li><a href="blog.html">Blog</a></li>
                                 <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
                                 <li><a href="blog-right-sidebar.html">Blog right sidebar</a></li>
                                 <li><a href="single-blog-fullwidth.html">Blog Single Fullwidth</a></li>
@@ -306,7 +160,7 @@ alert(errorMessage)
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Matches</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
                             <ul class="dropdown-menu">
                                 <li><a href="community.html">Community</a></li>
                                 <li><a href="members.html">Members</a></li>
@@ -320,7 +174,7 @@ alert(errorMessage)
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plans</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu">
                                 <li><a href="shop.html">Shop</a></li>
                                 <li><a href="shop-left.html">Shop Left</a></li>
@@ -331,7 +185,7 @@ alert(errorMessage)
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu">
                                 <li><a href="about-us.html">About Us</a></li>
                                 <li><a href="pricing.html">Pricing</a></li>
@@ -363,63 +217,37 @@ alert(errorMessage)
         <!--================Frist Main hader Area =================-->
         
         <!--================Slider Reg Area =================-->
-        <section class="slider_area">
+        <section class="slider_area slider_bg">
             <div class=slider_inner>
-                <div class="rev_slider fullwidthabanner"  data-version="5.3.0.2" id="home-slider2">
+                <div class="rev_slider fullwidthabanner"  data-version="5.3.0.2" id="home-slider3">
                     <ul> 
                         <li data-slotamount="7" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="600" data-rotate="0" data-saveperformance="off">
                             <!-- MAIN IMAGE -->
-                            <img src="img/slider-img/slider7.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
                             <!-- LAYERS -->
-                            <div class="tp-caption first_text" 
-                                data-width="none"
-                                data-height="none"
+                            <div class="tp-caption left_img"
                                 data-whitespace="nowrap"
-                                data-voffset="['260']"
-                                data-hoffset="['40','120','40']"
-                                data-x="left" 
-                                data-y="top"
-                                data-fontsize="['48']" 
-                                data-lineheight="['55']" 
-                                data-transform_idle="o:1;"
-                                data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
-                                data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
-                                data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
-                                data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
-                                data-start="800" 
-                                data-splitin="none" 
-                                data-splitout="none" 
-                                data-responsive_offset="on">Are You <span>Waiting</span> <br /> For <span>Dating ?</span>
-                            </div>
-                            <div class="tp-caption download_btn"
-                                data-whitespace="nowrap"
-                                data-voffset="['390']"
-                                data-hoffset="['40','120','40']"
+                                data-voffset="['0']"
+                                data-hoffset="['80','20']"
                                 data-x="left"
+                                data-y="bottom"
                                 data-transform_idle="o:1;"
                                 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
                                 data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
                                 data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
-                                data-y="top"
                                 data-start="1800" >
-                                <a class="register_angkar_btn" href="#">Registration</a>
+                                <img src="img/slider-img/slider-item-1.png" alt="">
                             </div>
-                        </li>
-                        <li data-index="rs-1597" data-slotamount="7" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="600" data-rotate="0" data-saveperformance="off">
-                            <!-- MAIN IMAGE -->
-                            <img src="img/slider-img/slider81.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
-                            <!-- LAYERS -->
                             <div class="tp-caption first_text" 
                                 data-width="none"
                                 data-height="none"
                                 data-whitespace="nowrap"
-                                data-voffset="['260']"
-                                data-hoffset="['40','120','40']"
-                                data-x="left" 
+                                data-voffset="['300','170']"
+                                data-hoffset="['190','0']"
+                                data-x="center" 
                                 data-y="top"
-                                data-fontsize="['48']" 
-                                data-lineheight="['55']" 
+                                data-fontsize="['48','48','48','28']" 
+                                data-lineheight="['55','55','55','35']" 
                                 data-transform_idle="o:1;"
                                 data-frames='[{"from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:[-100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
                                 data-textAlign="['left','left','left','left']"
@@ -430,13 +258,32 @@ alert(errorMessage)
                                 data-start="800" 
                                 data-splitin="none" 
                                 data-splitout="none" 
-                                data-responsive_offset="on">Are You <span style="color: white;">Waiting</span> <br /> For <span style="color: white;">Dating ?</span>
+                                data-responsive_offset="on">We Have More Than <br />25,000 Members
                             </div>
-                            <div class="tp-caption download_btn"
+                            <div class="tp-caption secand_text"
                                 data-whitespace="nowrap"
-                                data-voffset="['390']"
-                                data-hoffset="['40','120','40']"
-                                data-x="left"
+                                data-voffset="['430','300','300','260']"
+                                data-hoffset="['135','-50','-50','0']"
+                                data-x="center"
+                                data-transform_idle="o:1;"
+                                data-fontsize="['22','22','22','22','18']" 
+                                data-lineheight="['30','30','30','30','27']" 
+                                 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+                                data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+                                data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+                                data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+                                data-y="top"
+                                data-start="1800" >
+                                Join VeroDate & Start Dating Today
+                            </div>
+                            <div class="tp-caption third_text"
+                                data-voffset="['470','350','350','320']"
+                                data-hoffset="['220','30','30','0']"
+                                data-whitespace="['nowrap','nowrap','nowrap','normal']"
+                                data-width="['','','','100%']"
+                                data-x="center"
+                                data-fontsize="['16','16','16','20']" 
+                                data-lineheight="['26','26','26','30']" 
                                 data-transform_idle="o:1;"
                                 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
                                 data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
@@ -444,48 +291,111 @@ alert(errorMessage)
                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
                                 data-y="top"
                                 data-start="1800" >
-                                <a class="register_angkar_btn" href="#">Registration</a>
+                                There are many variations of passages of Lorem Ipsum available, but the <br class="s_br_p" /> majority have suffered alteration.
+                            </div>
+                            <div class="tp-caption download_btn"
+                                data-whitespace="nowrap"
+                                data-voffset="['540','450']"
+                                data-hoffset="['38','0']"
+                                data-x="center"
+                                data-transform_idle="o:1;"
+                                data-frames='[{"from":"x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":500,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"x:[-100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
+                                data-textAlign="['left','left','left','left']"
+                                data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]"
+                                data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                data-y="top"
+                                data-start="1800" >
+                                <a class="register_angkar_btn" href="#">Join now</a>
+                            </div>
+                        </li>
+                        <li data-slotamount="7" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="600" data-rotate="0" data-saveperformance="off">
+                            <!-- MAIN IMAGE -->
+                            <!-- LAYERS -->
+                            <div class="tp-caption left_img"
+                                data-whitespace="nowrap"
+                                data-voffset="['0']"
+                                data-hoffset="80"
+                                data-x="left"
+                                data-y="bottom"
+                                data-transform_idle="o:1;"
+                                data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+                                data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+                                data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+                                data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
+                                data-start="1800" >
+                                <img src="img/slider-img/slider-item-1.png" alt="">
+                            </div>
+                            <div class="tp-caption first_text" 
+                                data-width="none"
+                                data-height="none"
+                                data-voffset="['300','170']"
+                                data-hoffset="['190','0']"
+                                data-x="center" 
+                                data-y="top"
+                                data-fontsize="['48','48','48','28']" 
+                                data-lineheight="['55','55','55','35']" 
+                                data-transform_idle="o:1;"
+                                data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+                                data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+                                data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+                                data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+                                data-start="800" 
+                                data-splitin="none" 
+                                data-splitout="none" 
+                                data-responsive_offset="on">We Have More Than <br />25,000 Members
+                            </div>
+                            <div class="tp-caption secand_text"
+                                data-whitespace="nowrap"
+                                data-voffset="['430','300','300','260']"
+                                data-hoffset="['135','-50','-50','0']"
+                                data-x="center"
+                                data-transform_idle="o:1;"
+                                data-fontsize="['22','22','22','22','18']" 
+                                data-lineheight="['30','30','30','30','27']" 
+                                 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+                                data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+                                data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+                                data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+                                data-y="top"
+                                data-start="1800" >
+                                Join VeroDate & Start Dating Today
+                            </div>
+                            <div class="tp-caption third_text"
+                                data-voffset="['470','350','350','320']"
+                                data-hoffset="['220','30','30','0']"
+                                data-whitespace="['nowrap','nowrap','nowrap','normal']"
+                                data-width="['','','','100%']"
+                                data-x="center"
+                                data-fontsize="['16','16','16','20']" 
+                                data-lineheight="['26','26','26','30']" 
+                                data-transform_idle="o:1;"
+                                data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+                                data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+                                data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+                                data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
+                                data-y="top"
+                                data-start="1800" >
+                                There are many variations of passages of Lorem Ipsum available, but the <br class="s_br_p" /> majority have suffered alteration.
+                            </div>
+                            <div class="tp-caption download_btn"
+                                data-whitespace="nowrap"
+                                data-voffset="['540','450']"
+                                data-hoffset="['38','0']"
+                                data-x="center"
+                                data-transform_idle="o:1;"
+                                data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+                                data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+                                data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+                                data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
+                                data-y="top"
+                                data-start="1800" >
+                                <a class="register_angkar_btn" href="#">Join now</a>
                             </div>
                         </li>
                     </ul> 
                 </div><!-- END REVOLUTION SLIDER -->
-            </div>
-            <div class="advanced_search">
-                <div class="container">
-                    <div class="search_inner">
-                        <div class="search_item">
-                            <h5>I am a</h5>
-                            <select class="selectpicker">
-                                <option>Man</option>
-                                <option>Woman</option>
-                            </select>
-                        </div>
-                        <div class="search_item">
-                            <h5>Seeking a</h5>
-                            <select class="selectpicker">
-                                <option>Woman</option>
-                                <option>Man</option>
-                            </select>
-                        </div>
-                        <div class="search_item">
-                            <h5>From</h5>
-                            <select class="selectpicker">
-                                <option>20</option>
-                                <option>28</option>
-                            </select>
-                        </div>
-                        <div class="search_item">
-                            <h5>To</h5>
-                            <select class="selectpicker">
-                                <option>28</option>
-                                <option>38</option>
-                            </select>
-                        </div>
-                        <div class="search_item">
-                            <button type="submit" value="LogIn" class="btn form-control login_btn">Search</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <!--================End Slider Reg Area =================-->
@@ -494,7 +404,7 @@ alert(errorMessage)
         <section class="welcome_area">
             <div class="container">
                 <div class="welcome_title">
-                    <h3>Welcome to <span>Soul</span>Mate</h3>
+                    <h3>Welcome to <span>Vero</span>Date</h3>
                     <img src="img/w-title-b.png" alt="">
                 </div>
                 <div class="row">
@@ -714,78 +624,78 @@ alert(errorMessage)
             <div class="blog_slider_inner">
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/a.jpg" alt="">
+                        <img src="img/blog/blog_slider/blog_slider-1.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>25</h4>
-                            <h5>0.35 KMs away</h5>
+                            <h4>Your Blog title here</h4>
+                            <h5>03 Sep, 2016 <span>|</span> Dating</h5>
                             <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
+                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                <li><a href="#"><i class="fa fa-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/b.jpg" alt="">
+                        <img src="img/blog/blog_slider/blog_slider-3.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>22</h4>
-                            <h5>2.4 KMs away</h5>
+                            <h4>Your Blog title here</h4>
+                            <h5>03 Sep, 2016 <span>|</span> Dating</h5>
                             <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
+                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                <li><a href="#"><i class="fa fa-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/c.jpg" alt="">
+                        <img src="img/blog/blog_slider/blog_slider-4.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>21</h4>
-                            <h5>1.2 KMs away</h5>
+                            <h4>Your Blog title here</h4>
+                            <h5>03 Sep, 2016 <span>|</span> Dating</h5>
                             <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
+                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                <li><a href="#"><i class="fa fa-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/d.jpg" alt="">
+                        <img src="img/blog/blog_slider/blog_slider-1.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>19</h4>
-                            <h5>1.8 KMs away</h5>
+                            <h4>Your Blog title here</h4>
+                            <h5>03 Sep, 2016 <span>|</span> Dating</h5>
                             <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
+                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                <li><a href="#"><i class="fa fa-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/e.jpg" alt="">
+                        <img src="img/blog/blog_slider/blog_slider-3.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>28</h4>
-                            <h5>3.2 KMs away</h5>
+                            <h4>Your Blog title here</h4>
+                            <h5>03 Sep, 2016 <span>|</span> Dating</h5>
                             <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
+                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                <li><a href="#"><i class="fa fa-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="" alt="">
+                        <img src="img/blog/blog_slider/blog_slider-1.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>26</h4>
-                            <h5>0.2 KMs away</h5>
+                            <h4>Your Blog title here</h4>
+                            <h5>03 Sep, 2016 <span>|</span> Dating</h5>
                             <ul>
-                                <li><a href="#"><i class="fa fa-times"></i></a></li>
-                                <li><a href="#"><i class="fa fa-check"></i></a></li>
+                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                <li><a href="#"><i class="fa fa-link"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -849,7 +759,6 @@ alert(errorMessage)
         
         <!--================Map Area =================-->
         <section class="map_area">
-           
             <div id="mapCanvas"></div>
             
             <div class="container">
@@ -999,7 +908,6 @@ alert(errorMessage)
         </footer>
         <!--================End Footer Area =================-->
         
-        
         <div id="largeContent" style="display:none;">
             <div class="media tool_content">
                 <div class="media-left">
@@ -1013,7 +921,6 @@ alert(errorMessage)
                 </div>
             </div>
         </div>
-        
         
         
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -1045,11 +952,11 @@ alert(errorMessage)
         <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
         <script src="vendors/bs-tooltip/jquery.webui-popover.min.js"></script>
         <script src="vendors/jquery-ui/jquery-ui.js"></script>
-        
+          
         
         <script src="js/video_player.js"></script>
         <script src="js/theme.js"></script>
     </body>
 
-<!-- Mirrored from html.verodate.com/verodate/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:50:06 GMT -->
+<!-- Mirrored from html.verodate.com/verodate/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:47:45 GMT -->
 </html>
