@@ -21,6 +21,8 @@
 <script>
    
     var currentUid='';
+    var currName='';
+    var currDob;
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -36,16 +38,86 @@
 const firebaseApp = firebase.initializeApp(firebaseConfig);
   const firebaseAppAuth = firebaseApp.auth();
   var database = firebase.database();
+var currGen='';
+  /*
+   <div class="col-md-2">
+                        <div class="active_mem_item">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown tool_hover">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
+                                    */
+function choose(id,name,dob){
+    alert("You chose: "+id);
+    console.log("Chose: "+id);
+    let abhi= Date.now()
+    let oppgender=currGen=="Male"? 'Female':'Male'
+    database.ref('friends/'+id+"/"+currentUid).set({'timestamp':abhi,'name':currName,'dob':currDob});
+    database.ref('friends/'+currentUid+"/"+id).set({'timestamp':abhi,'name':name,'dob':dob});
 
+   // database.ref('users/'+id+"/requests/"+currentUid).delete();
+    database.ref('users/'+currGen+"/"+currentUid+"/requests/"+id).remove();
+
+              //  isConnectionMatch(userId);
+
+}
   function getRequests(uid){
     firebase.database().ref('genders/'+uid).once('value').then(function(snapshot) {
         var gen=snapshot.val().gender;
+        currGen=gen;
         console.log(gen)
+
+        database.ref('users/'+gen+"/"+uid).once('value', function(snapshot) {
+            currName=snapshot.val().name;
+            currDob=snapshot.val().dob;
+});
+
         database.ref('users/'+gen+"/"+uid+"/requests").once('value', function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     var childKey = childSnapshot.key;
+    
     var childData = childSnapshot.val();
     console.log(childKey)
+    console.log(childData)
+    var cm=document.createElement("div");
+    cm.setAttribute("class","col-md-2")
+    var ami=document.createElement("div");
+    ami.setAttribute("class","active_mem_item")
+    cm.appendChild(ami)
+
+    var ull=document.createElement("ul");
+    ull.setAttribute("class","nav navbar-nav");
+    ami.appendChild(ull);
+    
+    var dtl=document.createElement("li");
+    dtl.setAttribute("class","dropdown tool_hover");
+    ull.appendChild(dtl);
+
+    var a1=document.createElement("a");
+    a1.setAttribute("href","#")
+    a1.setAttribute("class","dropdown-toggle")
+    a1.setAttribute("data-toggle","dropdown")
+    a1.setAttribute("role","button")
+    a1.setAttribute("onclick","choose('"+childKey+"','"+childData.name+"','"+childData.dob+"')")
+    a1.setAttribute("aria-haspopup","true")
+    a1.setAttribute("aria-expanded","false")
+    dtl.append(a1);
+
+    var img1=document.createElement("img");
+    img1.setAttribute("class","img-circle");
+    img1.setAttribute("src","img/members/active-mem/active-mem-2.png")
+    a1.appendChild(img1)
+
+    var hh=document.createElement("h4");
+    hh.innerText=childData.name;
+    ami.appendChild(hh);
+    var hg=document.createElement("h5");
+    hg.innerText=childData.dob;
+    ami.appendChild(hg);
+
+    var mainwala=document.getElementById('itthe');
+    itthe.appendChild(cm);
+
     // ...
   });
 });
@@ -288,220 +360,10 @@ window.location.href="index-2.html"
         <!--================End Advanced Search Area =================-->
         <section class="active_members">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-3.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-2.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-4.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-3.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-5.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-4.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-6.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-5.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-2.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-6.png" alt=""></a>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--================End Advanced Search Area =================-->
-        
-        <!--================Footer Area =================-->
-        <footer class="footer_area">
-            <div class="footer_widgets_area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <aside class="f_widget">
-                                <div class="vero_widget">
-                                    <h4><span>Vero</span>Date</h4>
-                                    <p>There are many variations of passag-es of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything .</p>
-                                </div>
-                            </aside>
-                        </div>
-                        <div class="col-md-3">
-                            <aside class="f_widget">
-                                <div class="f_widget_title">
-                                    <h3>Information</h3>
-                                </div>
-                                <div class="information_widget">
-                                    <ul>
-                                        <li><a href="#">About us</a></li>
-                                        <li><a href="#">Contact us</a></li>
-                                        <li><a href="#">Membership</a></li>
-                                        <li><a href="#">Private Policy</a></li>
-                                        <li><a href="#">Forum Support</a></li>
-                                    </ul>
-                                </div>
-                            </aside>
-                        </div>
-                        <div class="col-md-3">
-                            <aside class="f_widget">
-                                <div class="f_widget_title">
-                                    <h3>Recent posts</h3>
-                                </div>
-                                <div class="recent_post_widget">
-                                    <ul>
-                                        <li><a href="#">Blog Standard Post <span>14 Sep, 2016</span></a></li>
-                                        <li><a href="#">Blog Image Post <span>12 Sep, 2016</span></a></li>
-                                        <li><a href="#">BlogVideo Post <span>08 Sep, 2016</span></a></li>
-                                        <li><a href="#">Blog Audio  Post <span>03 Sep, 2016</span></a></li>
-                                        <li><a href="#">Blog Standard Post <span>16 Aug, 2016</span></a></li>
-                                    </ul>
-                                </div>
-                            </aside>
-                        </div>
-                        <div class="col-md-3">
-                            <aside class="f_widget">
-                                <div class="f_widget_title">
-                                    <h3>Newsletter Signup</h3>
-                                </div>
-                                <div class="newsletter_widget">
-                                    <p>Get Alert Directly Into Your Inbox After Each Post.</p>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Enter your email">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </aside>
-                        </div>
+                <div class="row" id="itthe">
+                    
+                    
+                       
                     </div>
                 </div>
             </div>
