@@ -6,7 +6,7 @@
             max-height: 320px;
         }
     </style>
-<!-- Mirrored from html.verodate.com/verodate/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:50:06 GMT -->
+<!-- Mirrored from html.SoulMate.com/SoulMate/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:50:06 GMT -->
 <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
        
 <!-- TODO: Add SDKs for Firebase products that you want to use
@@ -58,7 +58,7 @@ console.log("User Logged Out")
 function showError(error) {
   switch(error.code) {
     case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.")
+      alert("SoulMate requires your Geolocation.")
       break;
     case error.POSITION_UNAVAILABLE:
     alert("Location information is unavailable.")
@@ -202,15 +202,9 @@ alert(errorMessage)
                <input type="text" placeholder="Username" id="login_username">
                <input type="password" placeholder="Password" id="login_password">
                <div class="login_btn_area">
-                   <button type="button" onclick="signIn()" value="LogIn" class="btn form-control login_btn">Log In </button>
-                   <button type="button" onclick="signOut()" value="LogOut" class="btn form-control login_btn">Log Out</button>
-                   <div class="login_social">
-                       <h5>Login With</h5>
-                       <ul>
-                           <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                           <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                       </ul>
-                   </div>
+                   <button type="button" onclick="signIn()" value="LogIn" class="btn form-control login_btn" style="margin-left: 30%;">Log In </button>
+                <p><h4>New User ?</h4><a type="button" href="#register_form" value="LogOut" class="register_angkar_btn popup-with-zoom-anim" style="margin-left: 27%;">Signup</a></p>
+                   
                </div>
            </form>
            <img class="mfp-close" src="img/close-btn.png" alt="">
@@ -280,22 +274,18 @@ alert(errorMessage)
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
+                    <a class="navbar-brand" href="index-2.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown submenu active">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index.html">Home 01</a></li>
-                                <li><a href="index-2.html">Home 02</a></li>
-                                <li><a href="index-3.html">Home 03</a></li>
-                            </ul>
+                            <a href="index-2.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                            
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Message</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messages</a>
                             <ul class="dropdown-menu">
                                 <li><a href="blog.html">Message</a></li>
                                 <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
@@ -403,7 +393,7 @@ alert(errorMessage)
                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
                                 data-y="top"
                                 data-start="1800" >
-                                <a class="register_angkar_btn" href="#">Registration</a>
+                                <a class="register_angkar_btn popup-with-zoom-anim"href="#register_form">Registration</a>
                             </div>
                         </li>
                         <li data-index="rs-1597" data-slotamount="7" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="600" data-rotate="0" data-saveperformance="off">
@@ -444,7 +434,7 @@ alert(errorMessage)
                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
                                 data-y="top"
                                 data-start="1800" >
-                                <a class="register_angkar_btn" href="#">Registration</a>
+                                <a class="register_angkar_btn popup-with-zoom-anim" href="#register_form" >Registration</a>
                             </div>
                         </li>
                     </ul> 
@@ -539,7 +529,7 @@ alert(errorMessage)
                         <div class="item">
                             <div class="col-md-7">
                                 <div class="download_app_icon">
-                                    <h3>Download <span>Vero</span><span>Date</span> app</h3>
+                                    <h3>Download <span>Soul</span><span>Mate</span> app</h3>
                                     <h5>Free Available in All Store PlayStore, AppStore & Microsoft Store</h5>
                                     <ul>
                                         <li><a href="#"><i class="fa fa-android"></i></a></li>
@@ -716,7 +706,8 @@ alert(errorMessage)
                     <div class="single_blog_slider">
                         <img src="img/blog/blog_slider/a.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>25</h4>
+                            <h4>Himanshi,25</h4>
+                            
                             <h5>0.35 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -727,9 +718,9 @@ alert(errorMessage)
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/b.jpg" alt="">
+                        <img src="img/blog/blog_slider/g.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>22</h4>
+                            <h4>Rubel,22</h4>
                             <h5>2.4 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -742,7 +733,7 @@ alert(errorMessage)
                     <div class="single_blog_slider">
                         <img src="img/blog/blog_slider/c.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>21</h4>
+                            <h4>Mahi,21</h4>
                             <h5>1.2 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -753,9 +744,9 @@ alert(errorMessage)
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/d.jpg" alt="">
+                        <img src="img/blog/blog_slider/h.jpeg" alt="">
                         <div class="blog_item_content">
-                            <h4>19</h4>
+                            <h4>Anshul,19</h4>
                             <h5>1.8 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -768,7 +759,7 @@ alert(errorMessage)
                     <div class="single_blog_slider">
                         <img src="img/blog/blog_slider/e.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>28</h4>
+                            <h4>Avneet,20</h4>
                             <h5>3.2 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -779,9 +770,9 @@ alert(errorMessage)
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="" alt="">
+                        <img src="img/blog/blog_slider/f.jpg" alt="" >
                         <div class="blog_item_content">
-                            <h4>26</h4>
+                            <h4>Rohit,26</h4>
                             <h5>0.2 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -917,8 +908,8 @@ alert(errorMessage)
                     <div class="row">
                         <div class="col-md-3">
                             <aside class="f_widget">
-                                <div class="vero_widget">
-                                    <h4><span>Vero</span>Date</h4>
+                                <div class="Soul_widget">
+                                    <h4><span>Soul</span>Mate</h4>
                                     <p>There are many variations of passag-es of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
                                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything .</p>
                                 </div>
@@ -978,7 +969,7 @@ alert(errorMessage)
             <div class="copyright">
                 <div class="copyright_left">
                     <div class="copyright_text">
-                        <h4>Copyright © 2017. <a href="#">VeroDate</a> . all rights reserved</h4>
+                        <h4>Copyright © 2017. <a href="#">SoulMate</a> . all rights reserved</h4>
                     </div>
                 </div>
                 <div class="copyright_right">
@@ -1015,7 +1006,12 @@ alert(errorMessage)
         </div>
         
         
-        
+        <script>
+        function load()
+        {
+            document.getElementById("register_form").style.display = "Block"
+        }
+        </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-2.1.4.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -1051,5 +1047,5 @@ alert(errorMessage)
         <script src="js/theme.js"></script>
     </body>
 
-<!-- Mirrored from html.verodate.com/verodate/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:50:06 GMT -->
+<!-- Mirrored from html.SoulMate.com/SoulMate/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:50:06 GMT -->
 </html>
