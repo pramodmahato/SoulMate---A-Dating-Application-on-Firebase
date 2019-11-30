@@ -9,6 +9,7 @@
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>VeroDate - Dating Social Network Website</title>
+
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
        
 <!-- TODO: Add SDKs for Firebase products that you want to use
@@ -45,20 +46,13 @@ var currGen='';
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
                                     */
-/*function choose(id){
+function choose(id,name){
     alert("You chose: "+id);
     console.log("Chose: "+id);
-    let abhi= Date.now()
-    let oppgender=currGen=="Male"? 'Female':'Male'
-    database.ref('friends/'+id+"/"+currentUid).set({'timestamp':abhi});
-    database.ref('friends/'+currentUid+"/"+id).set({'timestamp':abhi});
-
-   // database.ref('users/'+id+"/requests/"+currentUid).delete();
-    database.ref('users/'+currGen+"/"+currentUid+"/requests/"+id).remove();
-
-              //  isConnectionMatch(userId);
-
-}*/
+    localStorage.setItem('chatWith',id)
+    localStorage.setItem('chatname',name)
+    window.location.href="chat.html"
+}
   function getUsers(uid){
     firebase.database().ref('genders/'+uid).once('value').then(function(snapshot) {
         /*var gen=snapshot.val().gender;
@@ -91,7 +85,7 @@ var currGen='';
     a1.setAttribute("class","dropdown-toggle")
     a1.setAttribute("data-toggle","dropdown")
     a1.setAttribute("role","button")
-    a1.setAttribute("onclick","choose('"+childKey+"')")
+    a1.setAttribute("onclick","choose('"+childKey+"','"+childData.name+"')")
     a1.setAttribute("aria-haspopup","true")
     a1.setAttribute("aria-expanded","false")
     dtl.append(a1);

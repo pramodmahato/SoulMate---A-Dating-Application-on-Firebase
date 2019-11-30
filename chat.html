@@ -2,11 +2,126 @@
 
 <link rel="stylesheet" href="chat.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<script>
+  var currentUid='';
+  var chatWith='';
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
+    authDomain: "india-datingapp.firebaseapp.com",
+    databaseURL: "https://india-datingapp.firebaseio.com",
+    projectId: "india-datingapp",
+    storageBucket: "india-datingapp.appspot.com",
+    messagingSenderId: "679658777666",
+    appId: "1:679658777666:web:7b52152b72b7cac11e51db",
+    measurementId: "G-4H9857GNPS"
+  };
+  // Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+  const firebaseAppAuth = firebaseApp.auth();
+  var database = firebase.database();
+
+
+
+  function createMyMsg(data){
+    var z=new Date(data.time)
+    var read1= z.getHours()+":"+z.getMinutes()+" "+ z.getDate()+"/"+z.getMonth()+"/"+z.getFullYear()
+    console.log(data)
+    console.log(data)
+    var ull=document.getElementById('msgbox')
+    var li1=document.createElement("li");
+    ull.appendChild(li1);
+
+    var mdar=document.createElement("div");
+    mdar.setAttribute("class","message-data")
+    li1.appendChild(mdar);
+
+    var mdt1=document.createElement("span");
+    mdt1.setAttribute("class","message-data-name");
+    var i1=document.createElement("i");
+    i1.setAttribute("class","fa fa-circle online")
+    mdt1.appendChild(i1)
+    mdt1.innerText="Me";
+    mdar.appendChild(mdt1)
+  
+    var mdt=document.createElement("span");
+    mdt.setAttribute("class","message-data-time");
+    mdt.innerText=read1;
+    mdar.appendChild(mdt)
+ 
+
+    var mom=document.createElement("div");
+    mom.setAttribute("class","message my-message")
+    mom.innerText=data.message
+    li1.appendChild(mom)
+    li.focus()
+    
+  }
+  function createTheirMsg(data){
+    console.log(data)
+    var z1=new Date(data.time)
+    var read2= z1.getHours()+":"+z1.getMinutes()+" "
+    var ull=document.getElementById('msgbox')
+    var li1=document.createElement("li");
+    li1.setAttribute("class","clearfix");
+    ull.appendChild(li1);
+    var mdar=document.createElement("div");
+    mdar.setAttribute("class","message-data align-right")
+    li1.appendChild(mdar);
+    var mdt=document.createElement("span");
+    mdt.setAttribute("class","message-data-time");
+    mdt.innerText=read2;
+    mdar.appendChild(mdt)
+    var mdt1=document.createElement("span");
+    mdt1.setAttribute("class","message-data-name");
+    mdt1.innerText=localStorage.getItem('chatname');
+    mdar.appendChild(mdt1)
+    var i1=document.createElement("i");
+    i1.setAttribute("class","fa fa-circle me")
+    mdt1.appendChild(i1)
+
+    var mom=document.createElement("div");
+    mom.setAttribute("class","message other-message")
+    mom.setAttribute("style","margin-right:10%;")
+    mom.innerText=data.message
+    li1.appendChild(mom)
+    li.focus()
+  }
+
+
+  if(localStorage.getItem('chatWith')){
+    chatWith=localStorage.getItem('chatWith')
+    console.log("Chat with: "+chatWith)
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+if (user) {
+    console.log(user.uid)
+    document.getElementById('userbox').innerHTML=localStorage.getItem('chatname');
+    currentUid=user.uid;
+    
+    database.ref('chats/'+currentUid+"/"+chatWith).endAt().on('child_added', function(snapshot) {
+      if(snapshot.val().sender=="me"){
+        createMyMsg(snapshot.val())
+
+      }
+      else if(snapshot.val().sender=="notme"){
+        createTheirMsg(snapshot.val())
+
+      }
+});
+} else {
+// No user is signed in.
+console.log("User Logged Out")
+window.location.href="index-2.html"
+
+}
+});
+</script>
 
 <!DOCTYPE html>
 <html>
@@ -16,70 +131,22 @@
         <div class="container clearfix">
              
                 
-                <div class="chat">
+                <div class="chat" >
                   <div class="chat-header clearfix">
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
                     
                     <div class="chat-about">
-                      <div class="chat-with">Chat with Vincent Porter</div>
-                      <div class="chat-num-messages">already 1 902 messages</div>
+                      <div class="chat-with" id="userbox"></div>
+                      <div class="chat-num-messages">New messages</div>
                     </div>
                     <i class="fa fa-star"></i>
                   </div> <!-- end chat-header -->
                   
                   <div class="chat-history"style="width:80%;" >
-                    <ul style="margin-left:10%;">
-                      <li class="clearfix">
-                        <div class="message-data align-right">
-                          <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
-                          <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
-                          
-                        </div>
-                        <div class="message other-message " style="margin-right:10%;">
-                          Hi Vincent, how are you? How is the project coming along?
-                        </div>
-                      </li>
+                    <ul style="margin-left:10%;" id="msgbox">
                       
-                      <li>
-                        <div class="message-data">
-                          <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                          <span class="message-data-time">10:12 AM, Today</span>
-                        </div>
-                        <div class="message my-message">
-                          Are we meeting today? Project has been already finished and I have results to show you.
-                        </div>
-                      </li>
                       
-                      <li class="clearfix">
-                        <div class="message-data align-right">
-                          <span class="message-data-time" >10:14 AM, Today</span> &nbsp; &nbsp;
-                          <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
-                          
-                        </div>
-                        <div class="message other-message float-right">
-                          Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
-                        </div>
-                      </li>
                       
-                      <li>
-                        <div class="message-data">
-                          <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                          <span class="message-data-time">10:20 AM, Today</span>
-                        </div>
-                        <div class="message my-message">
-                          Actually everything was fine. I'm very excited to show this to our team.
-                        </div>
-                      </li>
-                      
-                      <li>
-                        <div class="message-data">
-                          <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                          <span class="message-data-time">10:31 AM, Today</span>
-                        </div>
-                        <i class="fa fa-circle online"></i>
-                        <i class="fa fa-circle online" style="color: #AED2A6"></i>
-                        <i class="fa fa-circle online" style="color:#DAE9DA"></i>
-                      </li>
                       
                     </ul>
                     
@@ -90,13 +157,13 @@
                             
                     
                     
-                    <button>Send</button>
+                    <button onclick="onSend()">Send</button>
             
-                  </div> <!-- end chat-message -->
+                  </div>
                   
-                </div> <!-- end chat -->
+                </div> 
                 
-              </div> <!-- end container -->
+              </div> 
             
             <script id="message-template" type="text/x-handlebars-template">
               <li class="clearfix">
@@ -123,18 +190,34 @@
             </script>
             
     </body>
-    <Script>
-        (function(){
+    <script>
+      /*function recievedMsg(a){
+        var a=a;
+        console.log(a.message)
+      }*/
+      function sentMsg(b){
+        console.log(b.message)
+        console.log(b.sender)
+
+      }
+    /*  firebase.database().ref('chats/'+chatWith+"/"+currentUid).on('child_added', function(snapshot) {
+  recievedMsg(snapshot.val());
+});*/
+
+     function onSend()
+{
+  var myMsg=document.getElementById('message-to-send').value;
+     
+      database.ref('chats/'+chatWith+"/"+currentUid).push().set({'sender': 'notme', 'message':myMsg,'time':Date.now()});
+      database.ref('chats/'+currentUid+"/"+chatWith).push().set({'sender': 'me', 'message':myMsg,'time':Date.now()});
+
+}
+
+       /* (function(){
   
   var chat = {
     messageToSend: '',
     messageResponses: [
-      'Why did the web developer leave the restaurant? Because of the table layout.',
-      'How do you comfort a JavaScript bug? You console it.',
-      'An SQL query enters a bar, approaches two tables and asks: "May I join you?"',
-      'What is the most used language in programming? Profanity.',
-      'What is the object-oriented way to become wealthy? Inheritance.',
-      'An SEO expert walks into a bar, bars, pub, tavern, public house, Irish pub, drinks, beer, alcohol'
     ],
     init: function() {
       this.cacheDOM();
@@ -224,6 +307,8 @@
   searchFilter.init();
   
 })();
-
-    </Script>
+*/
+    </script>
+    
+    
 </html>
