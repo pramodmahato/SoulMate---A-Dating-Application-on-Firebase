@@ -58,7 +58,7 @@ console.log("User Logged Out")
 function showError(error) {
   switch(error.code) {
     case error.PERMISSION_DENIED:
-      alert("SoulMate requires your Geolocation.")
+      alert("User denied the request for Geolocation.")
       break;
     case error.POSITION_UNAVAILABLE:
     alert("Location information is unavailable.")
@@ -202,9 +202,15 @@ alert(errorMessage)
                <input type="text" placeholder="Username" id="login_username">
                <input type="password" placeholder="Password" id="login_password">
                <div class="login_btn_area">
-                   <button type="button" onclick="signIn()" value="LogIn" class="btn form-control login_btn" style="margin-left: 30%;">Log In </button>
-                <p><h4>New User ?</h4><a type="button" href="#register_form" value="LogOut" class="register_angkar_btn popup-with-zoom-anim" style="margin-left: 27%;">Signup</a></p>
-                   
+                   <button type="button" onclick="signIn()" value="LogIn" class="btn form-control login_btn">Log In </button>
+                   <button type="button" onclick="signOut()" value="LogOut" class="btn form-control login_btn">Log Out</button>
+                   <div class="login_social">
+                       <h5>Login With</h5>
+                       <ul>
+                           <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                           <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                       </ul>
+                   </div>
                </div>
            </form>
            <img class="mfp-close" src="img/close-btn.png" alt="">
@@ -274,18 +280,22 @@ alert(errorMessage)
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index-2.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
+                    <a class="navbar-brand" href="index.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown submenu active">
-                            <a href="index-2.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                            
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="index.html">Home 01</a></li>
+                                <li><a href="index-2.html">Home 02</a></li>
+                                <li><a href="index-3.html">Home 03</a></li>
+                            </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messages</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Message</a>
                             <ul class="dropdown-menu">
                                 <li><a href="blog.html">Message</a></li>
                                 <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
@@ -393,7 +403,7 @@ alert(errorMessage)
                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
                                 data-y="top"
                                 data-start="1800" >
-                                <a class="register_angkar_btn popup-with-zoom-anim"href="#register_form">Registration</a>
+                                <a class="register_angkar_btn" href="#">Registration</a>
                             </div>
                         </li>
                         <li data-index="rs-1597" data-slotamount="7" data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="600" data-rotate="0" data-saveperformance="off">
@@ -434,7 +444,7 @@ alert(errorMessage)
                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;"  
                                 data-y="top"
                                 data-start="1800" >
-                                <a class="register_angkar_btn popup-with-zoom-anim" href="#register_form" >Registration</a>
+                                <a class="register_angkar_btn" href="#">Registration</a>
                             </div>
                         </li>
                     </ul> 
@@ -529,7 +539,7 @@ alert(errorMessage)
                         <div class="item">
                             <div class="col-md-7">
                                 <div class="download_app_icon">
-                                    <h3>Download <span>Soul</span><span>Mate</span> app</h3>
+                                    <h3>Download <span>Vero</span><span>Date</span> app</h3>
                                     <h5>Free Available in All Store PlayStore, AppStore & Microsoft Store</h5>
                                     <ul>
                                         <li><a href="#"><i class="fa fa-android"></i></a></li>
@@ -706,8 +716,7 @@ alert(errorMessage)
                     <div class="single_blog_slider">
                         <img src="img/blog/blog_slider/a.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>Himanshi,25</h4>
-                            
+                            <h4>25</h4>
                             <h5>0.35 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -718,9 +727,9 @@ alert(errorMessage)
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/g.jpg" alt="">
+                        <img src="img/blog/blog_slider/b.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>Rubel,22</h4>
+                            <h4>22</h4>
                             <h5>2.4 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -733,7 +742,7 @@ alert(errorMessage)
                     <div class="single_blog_slider">
                         <img src="img/blog/blog_slider/c.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>Mahi,21</h4>
+                            <h4>21</h4>
                             <h5>1.2 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -744,9 +753,9 @@ alert(errorMessage)
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/h.jpeg" alt="">
+                        <img src="img/blog/blog_slider/d.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>Anshul,19</h4>
+                            <h4>19</h4>
                             <h5>1.8 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -759,7 +768,7 @@ alert(errorMessage)
                     <div class="single_blog_slider">
                         <img src="img/blog/blog_slider/e.jpg" alt="">
                         <div class="blog_item_content">
-                            <h4>Avneet,20</h4>
+                            <h4>28</h4>
                             <h5>3.2 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -770,9 +779,9 @@ alert(errorMessage)
                 </div>
                 <div class="item">
                     <div class="single_blog_slider">
-                        <img src="img/blog/blog_slider/f.jpg" alt="" >
+                        <img src="" alt="">
                         <div class="blog_item_content">
-                            <h4>Rohit,26</h4>
+                            <h4>26</h4>
                             <h5>0.2 KMs away</h5>
                             <ul>
                                 <li><a href="#"><i class="fa fa-times"></i></a></li>
@@ -1006,12 +1015,7 @@ alert(errorMessage)
         </div>
         
         
-        <script>
-        function load()
-        {
-            document.getElementById("register_form").style.display = "Block"
-        }
-        </script>
+        
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-2.1.4.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
