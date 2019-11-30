@@ -21,6 +21,8 @@
 <script>
    
     var currentUid='';
+    var currName='';
+    var currDob;
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -36,16 +38,86 @@
 const firebaseApp = firebase.initializeApp(firebaseConfig);
   const firebaseAppAuth = firebaseApp.auth();
   var database = firebase.database();
+var currGen='';
+  /*
+   <div class="col-md-2">
+                        <div class="active_mem_item">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown tool_hover">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
+                                    */
+function choose(id,name,dob){
+    alert("You chose: "+id);
+    console.log("Chose: "+id);
+    let abhi= Date.now()
+    let oppgender=currGen=="Male"? 'Female':'Male'
+    database.ref('friends/'+id+"/"+currentUid).set({'timestamp':abhi,'name':currName,'dob':currDob});
+    database.ref('friends/'+currentUid+"/"+id).set({'timestamp':abhi,'name':name,'dob':dob});
 
+   // database.ref('users/'+id+"/requests/"+currentUid).delete();
+    database.ref('users/'+currGen+"/"+currentUid+"/requests/"+id).remove();
+
+              //  isConnectionMatch(userId);
+
+}
   function getRequests(uid){
     firebase.database().ref('genders/'+uid).once('value').then(function(snapshot) {
         var gen=snapshot.val().gender;
+        currGen=gen;
         console.log(gen)
+
+        database.ref('users/'+gen+"/"+uid).once('value', function(snapshot) {
+            currName=snapshot.val().name;
+            currDob=snapshot.val().dob;
+});
+
         database.ref('users/'+gen+"/"+uid+"/requests").once('value', function(snapshot) {
   snapshot.forEach(function(childSnapshot) {
     var childKey = childSnapshot.key;
+    
     var childData = childSnapshot.val();
     console.log(childKey)
+    console.log(childData)
+    var cm=document.createElement("div");
+    cm.setAttribute("class","col-md-2")
+    var ami=document.createElement("div");
+    ami.setAttribute("class","active_mem_item")
+    cm.appendChild(ami)
+
+    var ull=document.createElement("ul");
+    ull.setAttribute("class","nav navbar-nav");
+    ami.appendChild(ull);
+    
+    var dtl=document.createElement("li");
+    dtl.setAttribute("class","dropdown tool_hover");
+    ull.appendChild(dtl);
+
+    var a1=document.createElement("a");
+    a1.setAttribute("href","#")
+    a1.setAttribute("class","dropdown-toggle")
+    a1.setAttribute("data-toggle","dropdown")
+    a1.setAttribute("role","button")
+    a1.setAttribute("onclick","choose('"+childKey+"','"+childData.name+"','"+childData.dob+"')")
+    a1.setAttribute("aria-haspopup","true")
+    a1.setAttribute("aria-expanded","false")
+    dtl.append(a1);
+
+    var img1=document.createElement("img");
+    img1.setAttribute("class","img-circle");
+    img1.setAttribute("src","img/members/active-mem/active-mem-2.png")
+    a1.appendChild(img1)
+
+    var hh=document.createElement("h4");
+    hh.innerText=childData.name;
+    ami.appendChild(hh);
+    var hg=document.createElement("h5");
+    hg.innerText=childData.dob;
+    ami.appendChild(hg);
+
+    var mainwala=document.getElementById('itthe');
+    itthe.appendChild(cm);
+
     // ...
   });
 });
