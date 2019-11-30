@@ -1,0 +1,327 @@
+
+
+<link rel="stylesheet" href="chat.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+       
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<script>
+  var currentUid='';
+  var chatWith='';
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
+    authDomain: "india-datingapp.firebaseapp.com",
+    databaseURL: "https://india-datingapp.firebaseio.com",
+    projectId: "india-datingapp",
+    storageBucket: "india-datingapp.appspot.com",
+    messagingSenderId: "679658777666",
+    appId: "1:679658777666:web:7b52152b72b7cac11e51db",
+    measurementId: "G-4H9857GNPS"
+  };
+  // Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+  const firebaseAppAuth = firebaseApp.auth();
+  var database = firebase.database();
+
+
+
+  function createMyMsg(data){
+    var z=new Date(data.time)
+    var read1= z.getHours()+":"+z.getMinutes()+" "+ z.getDate()+"/"+z.getMonth()+"/"+z.getFullYear()
+    console.log(data)
+    console.log(data)
+    var ull=document.getElementById('msgbox')
+    var li1=document.createElement("li");
+    ull.appendChild(li1);
+
+    var mdar=document.createElement("div");
+    mdar.setAttribute("class","message-data")
+    li1.appendChild(mdar);
+
+    var mdt1=document.createElement("span");
+    mdt1.setAttribute("class","message-data-name");
+    var i1=document.createElement("i");
+    i1.setAttribute("class","fa fa-circle online")
+    mdt1.appendChild(i1)
+    mdt1.innerText="Me";
+    mdar.appendChild(mdt1)
+  
+    var mdt=document.createElement("span");
+    mdt.setAttribute("class","message-data-time");
+    mdt.innerText=read1;
+    mdar.appendChild(mdt)
+ 
+
+    var mom=document.createElement("div");
+    mom.setAttribute("class","message my-message")
+    mom.innerText=data.message
+    li1.appendChild(mom)
+    li.focus()
+    
+  }
+  function createTheirMsg(data){
+    console.log(data)
+    var z1=new Date(data.time)
+    var read2= z1.getHours()+":"+z1.getMinutes()+" "
+    var ull=document.getElementById('msgbox')
+    var li1=document.createElement("li");
+    li1.setAttribute("class","clearfix");
+    ull.appendChild(li1);
+    var mdar=document.createElement("div");
+    mdar.setAttribute("class","message-data align-right")
+    li1.appendChild(mdar);
+    var mdt=document.createElement("span");
+    mdt.setAttribute("class","message-data-time");
+    mdt.innerText=read2;
+    mdar.appendChild(mdt)
+    var mdt1=document.createElement("span");
+    mdt1.setAttribute("class","message-data-name");
+    mdt1.innerText=localStorage.getItem('chatname');
+    mdar.appendChild(mdt1)
+    var i1=document.createElement("i");
+    i1.setAttribute("class","fa fa-circle me")
+    mdt1.appendChild(i1)
+
+    var mom=document.createElement("div");
+    mom.setAttribute("class","message other-message")
+    mom.setAttribute("style","margin-right:10%;")
+    mom.innerText=data.message
+    li1.appendChild(mom)
+    li.focus()
+  }
+
+
+  if(localStorage.getItem('chatWith')){
+    chatWith=localStorage.getItem('chatWith')
+    console.log("Chat with: "+chatWith)
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+if (user) {
+    console.log(user.uid)
+    document.getElementById('userbox').innerHTML=localStorage.getItem('chatname');
+    currentUid=user.uid;
+    
+    database.ref('chats/'+currentUid+"/"+chatWith).endAt().on('child_added', function(snapshot) {
+      if(snapshot.val().sender=="me"){
+        createMyMsg(snapshot.val())
+
+      }
+      else if(snapshot.val().sender=="notme"){
+        createTheirMsg(snapshot.val())
+
+      }
+});
+} else {
+// No user is signed in.
+console.log("User Logged Out")
+window.location.href="index-2.html"
+
+}
+});
+</script>
+
+<!DOCTYPE html>
+<html>
+    <body style="background-image: url(img/slider-img/slider7.jpg);">
+        <img src="img/soul1.png" alt="" width="170" height="50" style="margin-left: 10%;">
+        <a href="index-2.html" style="text-decoration: none; color: #e74343;position:absolute;right: 10%;"><h1>Home</h1></a>
+        <div class="container clearfix">
+             
+                
+                <div class="chat" >
+                  <div class="chat-header clearfix">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+                    
+                    <div class="chat-about">
+                      <div class="chat-with" id="userbox"></div>
+                      <div class="chat-num-messages">New messages</div>
+                    </div>
+                    <i class="fa fa-star"></i>
+                  </div> <!-- end chat-header -->
+                  
+                  <div class="chat-history"style="width:80%;" >
+                    <ul style="margin-left:10%;" id="msgbox">
+                      
+                      
+                      
+                      
+                    </ul>
+                    
+                  </div> <!-- end chat-history -->
+                  
+                  <div class="chat-message clearfix">
+                    <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+                            
+                    
+                    
+                    <button onclick="onSend()">Send</button>
+            
+                  </div>
+                  
+                </div> 
+                
+              </div> 
+            
+            <script id="message-template" type="text/x-handlebars-template">
+              <li class="clearfix">
+                <div class="message-data align-right">
+                  <span class="message-data-time" >{{time}}, Today</span> &nbsp; &nbsp;
+                  <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+                </div>
+                <div class="message other-message float-right">
+                  {{messageOutput}}
+                </div>
+              </li>
+            </script>
+            
+            <script id="message-response-template" type="text/x-handlebars-template">
+              <li>
+                <div class="message-data">
+                  <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                  <span class="message-data-time">{{time}}, Today</span>
+                </div>
+                <div class="message my-message">
+                  {{response}}
+                </div>
+              </li>
+            </script>
+            
+    </body>
+    <script>
+      /*function recievedMsg(a){
+        var a=a;
+        console.log(a.message)
+      }*/
+      function sentMsg(b){
+        console.log(b.message)
+        console.log(b.sender)
+
+      }
+    /*  firebase.database().ref('chats/'+chatWith+"/"+currentUid).on('child_added', function(snapshot) {
+  recievedMsg(snapshot.val());
+});*/
+
+     function onSend()
+{
+  var myMsg=document.getElementById('message-to-send').value;
+     
+      database.ref('chats/'+chatWith+"/"+currentUid).push().set({'sender': 'notme', 'message':myMsg,'time':Date.now()});
+      database.ref('chats/'+currentUid+"/"+chatWith).push().set({'sender': 'me', 'message':myMsg,'time':Date.now()});
+
+}
+
+       /* (function(){
+  
+  var chat = {
+    messageToSend: '',
+    messageResponses: [
+    ],
+    init: function() {
+      this.cacheDOM();
+      this.bindEvents();
+      this.render();
+    },
+    cacheDOM: function() {
+      this.$chatHistory = $('.chat-history');
+      this.$button = $('button');
+      this.$textarea = $('#message-to-send');
+      this.$chatHistoryList =  this.$chatHistory.find('ul');
+    },
+    bindEvents: function() {
+      this.$button.on('click', this.addMessage.bind(this));
+      this.$textarea.on('keyup', this.addMessageEnter.bind(this));
+    },
+    render: function() {
+      this.scrollToBottom();
+      if (this.messageToSend.trim() !== '') {
+        var template = Handlebars.compile( $("#message-template").html());
+        var context = { 
+          messageOutput: this.messageToSend,
+          time: this.getCurrentTime()
+        };
+
+        this.$chatHistoryList.append(template(context));
+        this.scrollToBottom();
+        this.$textarea.val('');
+        
+        // responses
+        var templateResponse = Handlebars.compile( $("#message-response-template").html());
+        var contextResponse = { 
+          response: this.getRandomItem(this.messageResponses),
+          time: this.getCurrentTime()
+        };
+        
+        setTimeout(function() {
+          this.$chatHistoryList.append(templateResponse(contextResponse));
+          this.scrollToBottom();
+        }.bind(this), 1500);
+        
+      }
+      
+    },
+    
+    addMessage: function() {
+      this.messageToSend = this.$textarea.val()
+      this.render();         
+    },
+    addMessageEnter: function(event) {
+        // enter was pressed
+        if (event.keyCode === 13) {
+          this.addMessage();
+        }
+    },
+    scrollToBottom: function() {
+       this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
+    },
+    getCurrentTime: function() {
+      return new Date().toLocaleTimeString().
+              replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+    },
+    getRandomItem: function(arr) {
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+    
+  };
+  
+  chat.init();
+  
+  var searchFilter = {
+    options: { valueNames: ['name'] },
+    init: function() {
+      var userList = new List('people-list', this.options);
+      var noItems = $('<li id="no-items-found">No items found</li>');
+      
+      userList.on('updated', function(list) {
+        if (list.matchingItems.length === 0) {
+          $(list.list).append(noItems);
+        } else {
+          noItems.detach();
+        }
+      });
+    }
+  };
+  
+  searchFilter.init();
+  
+})();
+*/
+
+    </script>
+    <sc
+    
+</html>
