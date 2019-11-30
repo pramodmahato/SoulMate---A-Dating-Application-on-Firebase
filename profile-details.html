@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     
-<!-- Mirrored from html.SoulMate.com/SoulMate/quick.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:48:55 GMT -->
+<!-- Mirrored from html.SoulMate.com/SoulMate/members-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:48:40 GMT -->
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +9,12 @@
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>SoulMate - Dating Social Network Website</title>
-
-        <!-- Icon css link -->
+        
+       <!-- Icon css link -->
         <link href="vendors/material-icon/css/materialdesignicons.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="vendors/linears-icon/style.css" rel="stylesheet">
-        
+        <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/animate.min.css">
         <!-- RS5.0 Layers and Navigation Styles -->
         <link rel="stylesheet" type="text/css" href="vendors/revolution/css/layers.css">
         <link rel="stylesheet" type="text/css" href="vendors/revolution/css/navigation.css">
@@ -36,6 +36,79 @@
         <link href="css/style.css" rel="stylesheet">
         <link href="css/responsive.css" rel="stylesheet">
 
+        <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+       
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
+<script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
+          authDomain: "india-datingapp.firebaseapp.com",
+          databaseURL: "https://india-datingapp.firebaseio.com",
+          projectId: "india-datingapp",
+          storageBucket: "india-datingapp.appspot.com",
+          messagingSenderId: "679658777666",
+          appId: "1:679658777666:web:7b52152b72b7cac11e51db",
+          measurementId: "G-4H9857GNPS"
+        };
+        // Initialize Firebase
+      const firebaseApp = firebase.initializeApp(firebaseConfig);
+        const firebaseAppAuth = firebaseApp.auth();
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var imagesRef = storageRef.child('images');
+
+        function signOut(){
+        firebase.auth().signOut().then(function() {
+// Sign-out successful.
+alert("User Logged Out")
+}).catch(function(error) {
+// An error happened.
+});
+    }
+      
+        firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+      // User is signed in.
+      console.log(user.uid);
+      firebase.database().ref('users/' + user.uid).once('value').then(function(snapshot) {
+  console.log(snapshot.val())
+  document.getElementById('profilename').innerText=snapshot.val().name;
+  // ...
+});
+
+
+      } else {
+      // No user is signed in.
+      console.log("User Logged Out")
+      }
+      });
+      let selectedFile;
+function handleFileUploadChange(e) {
+  selectedFile = e.target.files[0];
+}
+function handleFileUploadSubmit(e) {
+  const uploadTask = storageRef.child(`profileimg/${selectedFile.name}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
+  uploadTask.on('state_changed', (snapshot) => {
+  // Observe state change events such as progress, pause, and resume
+  }, (error) => {
+    // Handle unsuccessful uploads
+    console.log(error);
+  }, () => {
+     // Do something once upload is complete
+     console.log('success');
+  });
+}
+      document.getElementById('file-select').addEventListener('change', handleFileUploadChange);
+      document.getElementById('file-submit').addEventListener('click', handleFileUploadSubmit);
+     
+      </script>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -44,7 +117,6 @@
         <![endif]-->
     </head>
     <body>
-       
        <div class="login_form_inner zoom-anim-dialog mfp-hide" id="small-dialog">
            <h4>User Login</h4>
            <form>
@@ -118,6 +190,10 @@
                 </div>
             </div>
         </div>
+        <div class="register_form_inner zoom-anim-dialog mfp-hide" id="register_form1">
+              
+                    
+        </div>
        
         <!--================Frist Main hader Area =================-->
         <header class="header_menu_area">
@@ -146,7 +222,7 @@
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Messages</a>
                             <ul class="dropdown-menu">
                                 <li><a href="blog.html">Blog</a></li>
                                 <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
@@ -157,7 +233,7 @@
                             </ul>
                         </li>
                         <li class="dropdown submenu active">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Matches</a>
                             <ul class="dropdown-menu">
                                 <li><a href="community.html">Community</a></li>
                                 <li><a href="members.html">Members</a></li>
@@ -171,7 +247,7 @@
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Plans</a>
                             <ul class="dropdown-menu">
                                 <li><a href="shop.html">Shop</a></li>
                                 <li><a href="shop-left.html">Shop Left</a></li>
@@ -182,7 +258,7 @@
                             </ul>
                         </li>
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Profile</a>
                             <ul class="dropdown-menu">
                                 <li><a href="about-us.html">About Us</a></li>
                                 <li><a href="pricing.html">Pricing</a></li>
@@ -214,146 +290,68 @@
         <!--================Frist Main hader Area =================-->
         
         <!--================Banner Area =================-->
-        <section class="banner_area">
-            <div class="container">
-                <div class="banner_content">
-                    <h3 title="Quick Match"><img class="left_img" src="img/banner/t-left-img.png" alt="">Quick Match<img class="right_img" src="img/banner/t-right-img.png" alt=""></h3>
-                    <a href="index-2.html">Home</a>
-                    <a href="quick.html">Quick Match</a>
+        <section class="banner_area profile_banner" style="background-image: url(img/members/can.jpg);">
+
+            <div class="profiles_inners">
+
+                <div class="container">
+                    <div class="profile_content">
+                        <div class="user_img" style="border-radius: 50%;">
+                            <img class="img-circle" id="profileimg" src="http://www.rammandir.ca/sites/default/files/default_images/defaul-avatar_0.jpg" alt="" width="200" height="200">
+                            <img src="img/members/ca1.png" style="position: absolute; left:76%; top: 76%;" width="40" height="40">
+                        </div>
+                        <div class="user_name">
+                            <h3 id="profilename"></h3>
+                            <h4>23 years old</h4>
+                            <ul>
+                                <li><a href="#">New Delhi</a></li>
+                                <li class="dropdown extara">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">80% Match</a>
+                                    <ul class="dropdown-menu">
+                                       <li>Match</li>
+                                        <li>
+                                            <div class="circle1">
+                                                <strong></strong>
+                                            </div>
+                                            <h4>Match</h4>
+                                        </li>
+                                        <li>
+                                            <div class="circle2">
+                                                <strong></strong>
+                                            </div>
+                                            <h4>Enemy</h4>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="right_side_content">
+                             <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></a>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            <button type="submit" value="LogIn" class="btn form-control login_btn">Send request <img src="img/user.png" alt=""></button>
+                           <a href="chat.html" class=""><button  value="LogIn" class="btn form-control login_btn">Chat Now <img src="img/comment.png" alt=""></button>
+                             </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
         <!--================End Banner Area =================-->
-        
-        <!--================Author list =================-->
-        <section class="author_list_area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l heart_h">
-                            <img class="img-circle" src="img/members/author-l/author-l-1.png" alt="">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l close_h">
-                            <img class="img-circle" src="img/members/author-l/author-l-2.png" alt="">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l a_l_hover">
-                            <img class="img-circle" src="img/members/author-l/author-l-3.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l heart_h">
-                            <img class="img-circle" src="img/members/author-l/author-l-4.png" alt="">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l a_l_hover">
-                            <img class="img-circle" src="img/members/author-l/author-l-5.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l a_l_hover">
-                            <img class="img-circle" src="img/members/author-l/author-l-6.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l a_l_hover">
-                            <img class="img-circle" src="img/members/author-l/author-l-7.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l a_l_hover">
-                            <img class="img-circle" src="img/members/author-l/author-l-8.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l">
-                            <img class="img-circle" src="img/members/author-l/author-l-9.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l">
-                            <img class="img-circle" src="img/members/author-l/author-l-10.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l">
-                            <img class="img-circle" src="img/members/author-l/author-l-11.png" alt="">
-                        </div>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-xs-4">
-                        <div class="author_item_l a_l_hover">
-                            <img class="img-circle" src="img/members/author-l/author-l-12.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section>
+                <div id="filesubmit" style="margin-left:170px;margin-top:30px;">
+                        <input type="file" id="file-select" accept="image/*"/>
+                        <button id="file-submit">SUBMIT</button>
+                      </div>
         </section>
-        <!--================End Author list Area =================-->
-        
-        <!--================Adms Slider Area =================-->
-        <section class="adms_slider_area">
-            <div class="container">
-                <div class="adms_inners">
-                    <div class="adms_head">
-                        <div class="col-md-10">
-                            <div class="row left_adms">
-                                <div class="pull-left">
-                                    <h3>Lena Adms</h3>
-                                    <h4>26 years old</h4>
-                                    <h4>Frace, Paris</h4>
-                                </div>
-                                <div class="pull-right">
-                                    <h5>80% Match</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="row right_adms">
-                                <a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="adms_slider_inners">
-                        <div class="slider_adms_active team_inner_area">
-                            <div class="item">
-                                <div class="team_items">
-                                    <img src="img/members/adms-img/adms-1.png" alt="">
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team_items">
-                                    <img src="img/members/adms-img/adms-2.png" alt="">
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team_items">
-                                    <img src="img/members/adms-img/adms-3.png" alt="">
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team_items">
-                                    <img src="img/members/adms-img/adms-4.png" alt="">
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team_items">
-                                    <img src="img/members/adms-img/adms-2.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--================End Adms Slider Area =================-->
         
         <!--================Blog grid Area =================-->
         <section class="blog_grid_area">
@@ -362,58 +360,11 @@
                     <div class="col-md-9">
                         <div class="members_profile_inners">
                             <ul class="nav nav-tabs profile_menu" role="tablist">
-                                <li role="presentation"><a href="#activity" aria-controls="activity" role="tab" data-toggle="tab">Activity</a></li>
-                                <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                                <li role="presentation"><a href="#sites" aria-controls="sites" role="tab" data-toggle="tab">Sites</a></li>
-                                <li role="presentation"><a href="#friend" aria-controls="friend" role="tab" data-toggle="tab">Friend (260)</a></li>
-                                <li role="presentation"><a href="#group" aria-controls="group" role="tab" data-toggle="tab">Groups (3)</a></li>
-                                <li role="presentation"><a href="#forums" aria-controls="forums" role="tab" data-toggle="tab">Forums</a></li>
-                            </ul>
+                               
+                                <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile Details</a></li>
+                                                           </ul>
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade" id="activity">
-                                    <div class="profile_list">
-                                        <ul>
-                                            <li><a href="#">Gender</a></li>
-                                            <li><a href="#">Age</a></li>
-                                            <li><a href="#">Country</a></li>
-                                            <li><a href="#">City</a></li>
-                                            <li><a href="#">Birthday</a></li>
-                                            <li><a href="#">Relationship</a></li>
-                                            <li><a href="#">Looking for a</a></li>
-                                            <li><a href="#">Work as</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="#">Female</a></li>
-                                            <li><a href="#">26 years old</a></li>
-                                            <li><a href="#">France</a></li>
-                                            <li><a href="#">Paris</a></li>
-                                            <li><a href="#">16 December 1990</a></li>
-                                            <li><a href="#">Single</a></li>
-                                            <li><a href="#">Man</a></li>
-                                            <li><a href="#">Designer</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="#">Education</a></li>
-                                            <li><a href="#">Know</a></li>
-                                            <li><a href="#">Interests</a></li>
-                                            <li><a href="#">Smoking</a></li>
-                                            <li><a href="#">Eye Color</a></li>
-                                            <li><a href="#">Marital Status</a></li>
-                                            <li><a href="#">Looking for a</a></li>
-                                            <li><a href="#">Work as</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="#">Graduate Degree</a></li>
-                                            <li><a href="#">French, Russian</a></li>
-                                            <li><a href="#">Billiards</a></li>
-                                            <li><a href="#">No</a></li>
-                                            <li><a href="#">Brown</a></li>
-                                            <li><a href="#">Single</a></li>
-                                            <li><a href="#">Man</a></li>
-                                            <li><a href="#">Designer </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                               
                                 <div role="tabpanel" class="tab-pane active fade in" id="profile">
                                     <div class="profile_list">
                                         <ul>
@@ -422,19 +373,17 @@
                                             <li><a href="#">Country</a></li>
                                             <li><a href="#">City</a></li>
                                             <li><a href="#">Birthday</a></li>
-                                            <li><a href="#">Relationship</a></li>
-                                            <li><a href="#">Looking for a</a></li>
-                                            <li><a href="#">Work as</a></li>
+                                            <li><a href="#">Profession</a></li>
+                                          
                                         </ul>
                                         <ul>
                                             <li><a href="#">Female</a></li>
                                             <li><a href="#">26 years old</a></li>
-                                            <li><a href="#">France</a></li>
-                                            <li><a href="#">Paris</a></li>
+                                            <li><a href="#">New Delhi</a></li>
+                                            <li><a href="#">India</a></li>
                                             <li><a href="#">16 December 1990</a></li>
-                                            <li><a href="#">Single</a></li>
-                                            <li><a href="#">Man</a></li>
-                                            <li><a href="#">Designer</a></li>
+                                            <li><a href="#">Student</a></li>
+                                          
                                         </ul>
                                         <ul>
                                             <li><a href="#">Education</a></li>
@@ -442,19 +391,17 @@
                                             <li><a href="#">Interests</a></li>
                                             <li><a href="#">Smoking</a></li>
                                             <li><a href="#">Eye Color</a></li>
-                                            <li><a href="#">Marital Status</a></li>
-                                            <li><a href="#">Looking for a</a></li>
-                                            <li><a href="#">Work as</a></li>
+                                           
+                                           
                                         </ul>
                                         <ul>
                                             <li><a href="#">Graduate Degree</a></li>
-                                            <li><a href="#">French, Russian</a></li>
-                                            <li><a href="#">Billiards</a></li>
+                                            <li><a href="#">Hindi, English</a></li>
+                                            <li><a href="#">Reading Novel</a></li>
                                             <li><a href="#">No</a></li>
                                             <li><a href="#">Brown</a></li>
-                                            <li><a href="#">Single</a></li>
-                                            <li><a href="#">Man</a></li>
-                                            <li><a href="#">Designer </a></li>
+                                          
+                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -590,50 +537,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade" id="forums">
-                                    <div class="profile_list">
-                                        <ul>
-                                            <li><a href="#">Gender</a></li>
-                                            <li><a href="#">Age</a></li>
-                                            <li><a href="#">Country</a></li>
-                                            <li><a href="#">City</a></li>
-                                            <li><a href="#">Birthday</a></li>
-                                            <li><a href="#">Relationship</a></li>
-                                            <li><a href="#">Looking for a</a></li>
-                                            <li><a href="#">Work as</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="#">Female</a></li>
-                                            <li><a href="#">26 years old</a></li>
-                                            <li><a href="#">France</a></li>
-                                            <li><a href="#">Paris</a></li>
-                                            <li><a href="#">16 December 1990</a></li>
-                                            <li><a href="#">Single</a></li>
-                                            <li><a href="#">Man</a></li>
-                                            <li><a href="#">Designer</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="#">Education</a></li>
-                                            <li><a href="#">Know</a></li>
-                                            <li><a href="#">Interests</a></li>
-                                            <li><a href="#">Smoking</a></li>
-                                            <li><a href="#">Eye Color</a></li>
-                                            <li><a href="#">Marital Status</a></li>
-                                            <li><a href="#">Looking for a</a></li>
-                                            <li><a href="#">Work as</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li><a href="#">Graduate Degree</a></li>
-                                            <li><a href="#">French, Russian</a></li>
-                                            <li><a href="#">Billiards</a></li>
-                                            <li><a href="#">No</a></li>
-                                            <li><a href="#">Brown</a></li>
-                                            <li><a href="#">Single</a></li>
-                                            <li><a href="#">Man</a></li>
-                                            <li><a href="#">Designer </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                               
                             </div>
                             <div class="members_about_box">
                                 <h4>About me</h4>
@@ -648,54 +552,69 @@
                     </div>
                     <div class="col-md-3">
                         <div class="right_sidebar_area">
-                            <aside class="s_widget people_widget">
+                            <aside class="s_widget photo_widget">
                                 <div class="s_title">
-                                    <h4>People You Might Like</h4>
+                                    <h4>Photo</h4>
                                     <img src="img/widget-title-border.png" alt="">
                                 </div>
-                                <ul class="nav navbar-nav">
-                                    <li class="dropdown tool_hover">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/photo/people-p/people-1.png" alt=""></a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <div class="head_area">
-                                                    <h4>Lara Davis</h4>
-                                                    <h4>53% Match</h4>
-                                                </div>
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <img src="img/photo/people-p/people-drop-1.png" alt="">
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6>29 years old <br /> From Derby <br /> Single</h6>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#"><img class="img-circle" src="img/photo/people-p/people-2.png" alt=""></a></li>
-                                    <li><a href="#"><img class="img-circle" src="img/photo/people-p/people-3.png" alt=""></a></li>
-                                    <li class="dropdown tool_hover">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/photo/people-p/people-4.png" alt=""></a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <div class="head_area">
-                                                    <h4>Lara Davis</h4>
-                                                    <h4>53% Match</h4>
-                                                </div>
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <img src="img/photo/people-p/people-drop-1.png" alt="">
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h6>29 years old <br /> From Derby <br /> Single</h6>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#"><img class="img-circle" src="img/photo/people-p/people-5.png" alt=""></a></li>
-                                    <li><a href="#"><img class="img-circle" src="img/photo/people-p/people-6.png" alt=""></a></li>
+                                <ul>
+                                    <li><a href="#"><img src="img/photo/photo-1.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-2.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-3.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-4.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-5.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-6.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-7.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-8.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/photo/photo-9.jpg" alt=""></a></li>
+                                </ul>
+                            </aside>
+                            <aside class="s_widget recent_post_widget">
+                                <div class="s_title">
+                                    <h4>Recent Post</h4>
+                                    <img src="img/widget-title-border.png" alt="">
+                                </div>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="img/blog/recent-post/recent-post-1.jpg" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>Blog Image Post</h4>
+                                        <a href="#">14 Sep, 2016 at 08:00 Pm</a>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="img/blog/recent-post/recent-post-2.jpg" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>Blog Standard Post</h4>
+                                        <a href="#">14 Sep, 2016 at 08:00 Pm</a>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="img/blog/recent-post/recent-post-3.jpg" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <h4>Blog Image Post</h4>
+                                        <a href="#">14 Sep, 2016 at 08:00 Pm</a>
+                                    </div>
+                                </div>
+                            </aside>
+                            <aside class="s_widget social_widget">
+                                <div class="s_title">
+                                    <h4>Tags</h4>
+                                    <img src="img/widget-title-border.png" alt="">
+                                </div>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
                                 </ul>
                             </aside>
                         </div>
@@ -713,7 +632,7 @@
                         <div class="col-md-3">
                             <aside class="f_widget">
                                 <div class="Soul_widget">
-                                    <h4><span>Soul</span>Mate</h4>
+                                    <h4><span>Soul</span>Date</h4>
                                     <p>There are many variations of passag-es of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
                                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything .</p>
                                 </div>
@@ -794,9 +713,9 @@
         </footer>
         <!--================End Footer Area =================-->
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
         
-        
-        
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-2.1.4.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -824,13 +743,120 @@
         <script src="vendors/counter-up/waypoints.min.js"></script>
         <script src="vendors/counter-up/jquery.counterup.min.js"></script>
         <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="vendors/tooltip/tooltip.html"></script>
         <script src="vendors/bs-tooltip/jquery.webui-popover.min.js"></script>
+        <script src="vendors/progress-circle/circle-progress.min.js"></script>
         <script src="vendors/jquery-ui/jquery-ui.js"></script>
         
         
         <script src="js/video_player.js"></script>
+        <script src="js/costome-circle.js"></script>
         <script src="js/theme.js"></script>
+        
+        <script >
+ (function(){
+  
+  var chat = {
+    messageToSend: '',
+    messageResponses: [
+      'Why did the web developer leave the restaurant? Because of the table layout.',
+      'How do you comfort a JavaScript bug? You console it.',
+      'An SQL query enters a bar, approaches two tables and asks: "May I join you?"',
+      'What is the most used language in programming? Profanity.',
+      'What is the object-oriented way to become wealthy? Inheritance.',
+      'An SEO expert walks into a bar, bars, pub, tavern, public house, Irish pub, drinks, beer, alcohol'
+    ],
+    init: function() {
+      this.cacheDOM();
+      this.bindEvents();
+      this.render();
+    },
+    cacheDOM: function() {
+      this.$chatHistory = $('.chat-history');
+      this.$button = $('button');
+      this.$textarea = $('#message-to-send');
+      this.$chatHistoryList =  this.$chatHistory.find('ul');
+    },
+    bindEvents: function() {
+      this.$button.on('click', this.addMessage.bind(this));
+      this.$textarea.on('keyup', this.addMessageEnter.bind(this));
+    },
+    render: function() {
+      this.scrollToBottom();
+      if (this.messageToSend.trim() !== '') {
+        var template = Handlebars.compile( $("#message-template").html());
+        var context = { 
+          messageOutput: this.messageToSend,
+          time: this.getCurrentTime()
+        };
+
+        this.$chatHistoryList.append(template(context));
+        this.scrollToBottom();
+        this.$textarea.val('');
+        
+        // responses
+        var templateResponse = Handlebars.compile( $("#message-response-template").html());
+        var contextResponse = { 
+          response: this.getRandomItem(this.messageResponses),
+          time: this.getCurrentTime()
+        };
+        
+        setTimeout(function() {
+          this.$chatHistoryList.append(templateResponse(contextResponse));
+          this.scrollToBottom();
+        }.bind(this), 1500);
+        
+      }
+      
+    },
+    
+    addMessage: function() {
+      this.messageToSend = this.$textarea.val()
+      this.render();         
+    },
+    addMessageEnter: function(event) {
+        // enter was pressed
+        if (event.keyCode === 13) {
+          this.addMessage();
+        }
+    },
+    scrollToBottom: function() {
+       this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
+    },
+    getCurrentTime: function() {
+      return new Date().toLocaleTimeString().
+              replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+    },
+    getRandomItem: function(arr) {
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+    
+  };
+  
+  chat.init();
+  
+  var searchFilter = {
+    options: { valueNames: ['name'] },
+    init: function() {
+      var userList = new List('people-list', this.options);
+      var noItems = $('<li id="no-items-found">No items found</li>');
+      
+      userList.on('updated', function(list) {
+        if (list.matchingItems.length === 0) {
+          $(list.list).append(noItems);
+        } else {
+          noItems.detach();
+        }
+      });
+    }
+  };
+  
+  searchFilter.init();
+  
+})();
+
+ </script>
     </body>
 
-<!-- Mirrored from html.SoulMate.com/SoulMate/quick.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:49:09 GMT -->
+<!-- Mirrored from html.SoulMate.com/SoulMate/members-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:48:46 GMT -->
 </html>
