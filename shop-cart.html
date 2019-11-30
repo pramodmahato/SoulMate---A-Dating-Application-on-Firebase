@@ -9,6 +9,123 @@
         <link rel="icon" href="img/fav-icon.png" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>VeroDate - Dating Social Network Website</title>
+<<<<<<< Updated upstream:shop-cart.html
+=======
+        <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+       
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+<script>
+   
+    var currentUid='';
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
+    authDomain: "india-datingapp.firebaseapp.com",
+    databaseURL: "https://india-datingapp.firebaseio.com",
+    projectId: "india-datingapp",
+    storageBucket: "india-datingapp.appspot.com",
+    messagingSenderId: "679658777666",
+    appId: "1:679658777666:web:7b52152b72b7cac11e51db",
+    measurementId: "G-4H9857GNPS"
+  };
+  // Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+  const firebaseAppAuth = firebaseApp.auth();
+  var database = firebase.database();
+var currGen='';
+  /*
+   <div class="col-md-2">
+                        <div class="active_mem_item">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown tool_hover">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
+                                    */
+function choose(id,name){
+    alert("You chose: "+id);
+    console.log("Chose: "+id);
+    localStorage.setItem('chatWith',id)
+    localStorage.setItem('chatname',name)
+    window.location.href="chat.html"
+}
+  function getUsers(uid){
+    firebase.database().ref('genders/'+uid).once('value').then(function(snapshot) {
+        /*var gen=snapshot.val().gender;
+        currGen=gen;
+        console.log(gen)*/
+        database.ref('friends/'+currentUid).once('value', function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    var childKey = childSnapshot.key;
+    
+    var childData = childSnapshot.val();
+    console.log(childKey)
+    console.log(childData)
+   
+    var cm=document.createElement("div");
+    cm.setAttribute("class","col-md-2")
+    var ami=document.createElement("div");
+    ami.setAttribute("class","active_mem_item")
+    cm.appendChild(ami)
+
+    var ull=document.createElement("ul");
+    ull.setAttribute("class","nav navbar-nav");
+    ami.appendChild(ull);
+    
+    var dtl=document.createElement("li");
+    dtl.setAttribute("class","dropdown tool_hover");
+    ull.appendChild(dtl);
+
+    var a1=document.createElement("a");
+    a1.setAttribute("href","#")
+    a1.setAttribute("class","dropdown-toggle")
+    a1.setAttribute("data-toggle","dropdown")
+    a1.setAttribute("role","button")
+    a1.setAttribute("onclick","choose('"+childKey+"','"+childData.name+"')")
+    a1.setAttribute("aria-haspopup","true")
+    a1.setAttribute("aria-expanded","false")
+    dtl.append(a1);
+    var img1=document.createElement("img");
+    img1.setAttribute("class","img-circle");
+    img1.setAttribute("src","img/members/active-mem/active-mem-2.png")
+    a1.appendChild(img1)
+
+    var hh=document.createElement("h4");
+    hh.innerText=childData.name;
+    ami.appendChild(hh);
+    var hg=document.createElement("h5");
+    hg.innerText=childData.dob;
+    ami.appendChild(hg);
+
+    var mainwala=document.getElementById('itthe');
+    itthe.appendChild(cm);
+
+    // ...
+  });
+});
+});
+
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+if (user) {
+    console.log(user.uid)
+    getUsers(user.uid)
+    currentUid=user.uid;
+} else {
+// No user is signed in.
+console.log("User Logged Out")
+window.location.href="index-2.html"
+
+}
+});
+  </script>
+>>>>>>> Stashed changes:friends.html
 
         <!-- Icon css link -->
         <link href="vendors/material-icon/css/materialdesignicons.min.css" rel="stylesheet">
