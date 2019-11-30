@@ -130,15 +130,19 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index-2.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
+                    <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt=""></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown submenu">
-                            <a href="index-2.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                            
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="index.html">Home 01</a></li>
+                                <li><a href="index-2.html">Home 02</a></li>
+                                <li><a href="index-3.html">Home 03</a></li>
+                            </ul>
                         </li>
                         <li class="dropdown submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
@@ -231,10 +235,10 @@
                     <div class="pricing_topic">
                         <div class="border_div"></div>
                         <div class="border_div_right"></div>
-                        <a class="active" onclick="basic()">Basic</a>
-                        <a class="" onclick="pre()">Premium</a>
+                        <a href="#">Basic</a>
+                        <a class="active" href="#">Premium</a>
                     </div>
-                    <div class="col-md-8" id="premium" style="display:none">
+                    <div class="col-md-8">
                         <div class="basic_content">
                             <div class="media">
                                 <div class="media-left">
@@ -283,77 +287,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8" id="basic">
-                        <div class="basic_content">
-                            <div class="media">
-                                <div class="media-left">
-                                    <img src="img/price/price-icon-1.png" alt="">
-                                </div>
-                                <div class="media-body">
-                                    <h4>No Advanced Search filter</h4>
-                                    <p>You can not search your partner according your choice of desired location,personality etc.</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-left">
-                                    <img src="img/price/price-icon-2.png" alt="">
-                                </div>
-                                <div class="media-body">
-                                    <h4>Not able to see Who likes You</h4>
-                                    <p>You will be unable to know who likes your profile.</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-left">
-                                    <img src="img/price/price-icon-3.png" alt="">
-                                </div>
-                                <div class="media-body">
-                                    <h4>Send Unlimited Message</h4>
-                                    <p>There is no restrictions in chatting with your partner.</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-left">
-                                    <img src="img/price/price-icon-4.png" alt="">
-                                </div>
-                                <div class="media-body">
-                                    <h4>Limited number of profile swipes per day</h4>
-                                    <p>You will get a very limited number of profile swipes per day which might lose the chance of getting your true partner.</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-left">
-                                    <img src="img/price/price-icon-5.png" alt="">
-                                </div>
-                                <div class="media-body">
-                                    <h4>Can not see who view Your profile</h4>
-                                    <p>You will not be able to see who view your profile.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                
                     <div class="col-md-4">
                         <div class="price_list">
                             <div class="price_box">
                                 <h4>1 Month Package</h4>
                                 <div class="price_round">
-                                    <h5>Rs 399</h5>
+                                    <h5>$22</h5>
                                     <h6>Per Month </h6>
                                 </div>
                                 <h3>No Current Offer</h3>
                             </div>
                             <div class="price_box">
-                                <h4>3 Month Package</h4>
+                                <h4>2 Month Package</h4>
                                 <div class="price_round">
-                                    <h5>Rs 499</h5>
+                                    <h5>$16</h5>
                                     <h6>Per Month </h6>
                                 </div>
-                                <h3>Invite your friend to get discount upto 25%</h3>
+                                <h3>No Current Offer</h3>
                             </div>
                             <div class="price_box">
                                 <h4>6 Month Package</h4>
                                 <div class="price_round">
-                                    <h5>Rs 1449</h5>
+                                    <h5>$10</h5>
                                     <h6>Per Month </h6>
                                 </div>
                                 <h3>No Current Offer</h3>
@@ -459,24 +414,7 @@
         <!--================End Footer Area =================-->
         
         
-        <script>
-        function basic()
-        {var a = document.getElementById("basic")
-        var b = document.getElementById("premium")
-         b.classList.remove('active') 
-         a.classList.add('active')
-            document.getElementById("basic").style.display= "block"
-            document.getElementById("premium").style.display=  "none"
-        }
-        function pre()
-        {var a = document.getElementById("basic")
-        var b = document.getElementById("premium")
-        a.classList.remove('active') 
-        b.classList.add('active')
-            document.getElementById("premium").style.display=  "block"
-            document.getElementById("basic").style.display= "none"
-        }
-        </script>
+        
         
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-2.1.4.min.js"></script>

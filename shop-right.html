@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     
-<!-- Mirrored from html.verodate.com/verodate/search.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:49:09 GMT -->
+<!-- Mirrored from html.verodate.com/verodate/shop-right.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:49:13 GMT -->
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,10 +35,6 @@
         
         <link href="css/style.css" rel="stylesheet">
         <link href="css/responsive.css" rel="stylesheet">
-        
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-        
-        <script src="js/map-custome.js"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,7 +44,6 @@
         <![endif]-->
     </head>
     <body>
-       
        <div class="login_form_inner zoom-anim-dialog mfp-hide" id="small-dialog">
            <h4>User Login</h4>
            <form>
@@ -135,7 +130,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="img/soul1.png" alt="" width="170" height="50"></a>
+                    <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt=""></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -160,7 +155,7 @@
                                 <li><a href="single-blog-right-sidebar.html">Blog Single right sidebar</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown submenu active">
+                        <li class="dropdown submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
                             <ul class="dropdown-menu">
                                 <li><a href="community.html">Community</a></li>
@@ -174,7 +169,7 @@
                                 <li><a href="search.html">Search</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown submenu">
+                        <li class="dropdown submenu active">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu">
                                 <li><a href="shop.html">Shop</a></li>
@@ -221,97 +216,311 @@
         <section class="banner_area">
             <div class="container">
                 <div class="banner_content">
-                    <h3 title="Search Map"><img class="left_img" src="img/banner/t-left-img.png" alt="">Search Map<img class="right_img" src="img/banner/t-right-img.png" alt=""></h3>
+                    <h3 title="Shop"><img class="left_img" src="img/banner/t-left-img.png" alt="">Shop<img class="right_img" src="img/banner/t-right-img.png" alt=""></h3>
                     <a href="index.html">Home</a>
-                    <a href="#">Pages</a>
-                    <a href="matches.html">Search Map</a>
+                    <a href="shop.html">Shop</a>
+                    <ul class="shop_banner_cart">
+                        <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                    </ul>
                 </div>
             </div>
         </section>
         <!--================End Banner Area =================-->
         
-        <!--================Advanced Search Area =================-->
-        <section class="advanced_search_area search_area2">
+        <!--================Shop left sidebar Area =================-->
+        <section class="shop_area shop_left_sidebar_area">
             <div class="container">
-                <div class="welcome_title">
-                    <h3>Find People in Map</h3>
-                    <img src="img/w-title-b.png" alt="">
-                </div>
-                <div class="search_option">
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="home">
-                            <div class="height_item">
-                                <h4>Looking for a</h4>
-                                <select class="selectpicker">
-                                    <option>Woman</option>
-                                    <option>Man</option>
-                                    <option>Male</option>
-                                </select>
-                                <h4>Your location</h4>
-                                <select class="selectpicker">
-                                    <option>Paris</option>
-                                    <option>London</option>
-                                    <option>BD</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>From (age)</h4>
-                                <select class="selectpicker">
-                                    <option>20</option>
-                                    <option>30</option>
-                                    <option>40</option>
-                                </select>
-                            </div>
-                            <div class="height_item">
-                                <h4>To (age)</h4>
-                                <select class="selectpicker">
-                                    <option>32</option>
-                                    <option>42</option>
-                                    <option>52</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
-                    <div class="col-md-7">
-                        <div class="range_count">
-                            <h5>Search Distance</h5>
-                            <div id="slider-range-min2">
-                                <div class="ui-slider-handle">
-                                    <span class="custom-handle"></span>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-1.jpg" alt="">
+                                        <div class="new_tag">
+                                            <h4>New</h4>
+                                        </div>
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
                                 </div>
                             </div>
-                            <div class="left_value">
-                                <div class="custom-value"></div>
-                                <div class="km_value">Km</div> 
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-2.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
                             </div>
-                            <div class="right_value">
-                                <h5>50km</h5>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-3.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-4.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-1.jpg" alt="">
+                                        <div class="new_tag">
+                                            <h4>New</h4>
+                                        </div>
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-2.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-3.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-4.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-1.jpg" alt="">
+                                        <div class="new_tag">
+                                            <h4>New</h4>
+                                        </div>
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-2.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-3.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product_item">
+                                    <div class="product_img">
+                                        <img src="img/shop/product-4.jpg" alt="">
+                                        <div class="hover_icon">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <h5>Product Name</h5>
+                                    <h6>$30.00</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="distance_right">
-                            <div class="creat_account">
-                                <input type="checkbox" id="f-option" name="selector">
-                                <label for="f-option">Search  the People with Photo</label>
-                                <div class="check"></div>
-                            </div>
-                            <a class="register_angkar_btn" href="#">Search</a>
+                    <div class="col-md-3">
+                        <div class="right_sidebar_area">
+                            <aside class="s_widget categories_widget">
+                                <div class="s_title">
+                                    <h4>Categories</h4>
+                                    <img src="img/widget-title-border.png" alt="">
+                                </div>
+                                <ul>
+                                    <li><a href="#"><img src="img/categories-list.png" alt="">Design</a></li>
+                                    <li><a href="#"><img src="img/categories-list.png" alt="">Business</a></li>
+                                    <li class="active"><a href="#"><img src="img/categories-list.png" alt="">Dating</a></li>
+                                    <li><a href="#"><img src="img/categories-list.png" alt="">Web Design</a></li>
+                                    <li><a href="#"><img src="img/categories-list.png" alt="">Featured</a></li>
+                                    <li><a href="#"><img src="img/categories-list.png" alt="">Technology</a></li>
+                                    <li><a href="#"><img src="img/categories-list.png" alt="">Photography</a></li>
+                                </ul>
+                            </aside>
+                            <aside class="s_widget price_widget">
+                                <div class="s_title">
+                                    <h4>Select Price</h4>
+                                    <img src="img/widget-title-border.png" alt="">
+                                </div>
+                                <div id="price_select"></div>
+                                <div class="price_inner">
+                                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                    <a href="#">$50</a>
+                                    <a href="#">$350</a>
+                                </div>
+                            </aside>
+                            <aside class="s_widget color_widget">
+                                <div class="s_title">
+                                    <h4>Color</h4>
+                                    <img src="img/widget-title-border.png" alt="">
+                                </div>
+                                <ul>
+                                    <li class="active"><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li class="active"><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                </ul>
+                            </aside>
+                            <aside class="s_widget l_product_widget">
+                                <div class="s_title">
+                                    <h4>Latest Products</h4>
+                                    <img src="img/widget-title-border.png" alt="">
+                                </div>
+                                <ul>
+                                    <li><a href="#"><img src="img/shop/l-product/l-product-1.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/shop/l-product/l-product-2.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/shop/l-product/l-product-3.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/shop/l-product/l-product-4.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/shop/l-product/l-product-5.jpg" alt=""></a></li>
+                                    <li><a href="#"><img src="img/shop/l-product/l-product-6.jpg" alt=""></a></li>
+                                </ul>
+                            </aside>
+                            <aside class="s_widget tags_widget tags_2">
+                                <div class="s_title">
+                                    <h4>Tags</h4>
+                                    <img src="img/widget-title-border.png" alt="">
+                                </div>
+                                <ul>
+                                    <li><a href="#">E Commerce</a></li>
+                                    <li><a href="#">Shop</a></li>
+                                    <li><a href="#">Business</a></li>
+                                    <li><a href="#">Technology</a></li>
+                                    <li><a href="#">Art</a></li>
+                                    <li><a href="#">Corporate</a></li>
+                                </ul>
+                            </aside>
                         </div>
                     </div>
+                </div>
+                <div class="pagination_area">
+                    <a class="prev" href="#">Previous</a>
+                    <a class="arrow_left" href="#"><i class="fa fa-angle-left"></i></a>
+                    <a class="arrow_right" href="#"><i class="fa fa-angle-right"></i></a>
+                    <a class="next" href="#">Next</a>
                 </div>
             </div>
         </section>
-        <!--================End Advanced Search Area =================-->
-        
-        <!--================Map Area =================-->
-        <section class="map_area">
-            <div id="mapCanvas"></div>
-        </section>
-        <!--================End Map Area =================-->
+        <!--================End Shop left sidebar Area =================-->
         
         <!--================Footer Area =================-->
         <footer class="footer_area">
@@ -402,19 +611,7 @@
         </footer>
         <!--================End Footer Area =================-->
         
-        <div id="largeContent" style="display:none;">
-            <div class="media tool_content">
-                <div class="media-left">
-                    <img src="img/map-persion.png" alt="">
-                </div>
-                <div class="media-body">
-                    <h3>Sandi Williams</h3>
-                    <h5>21 years old</h5>
-                    <h5>From Paris</h5>
-                    <h5>Distance 16 km</h5>
-                </div>
-            </div>
-        </div>
+        
         
         
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -452,5 +649,5 @@
         <script src="js/theme.js"></script>
     </body>
 
-<!-- Mirrored from html.verodate.com/verodate/search.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:49:09 GMT -->
+<!-- Mirrored from html.verodate.com/verodate/shop-right.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:49:13 GMT -->
 </html>
