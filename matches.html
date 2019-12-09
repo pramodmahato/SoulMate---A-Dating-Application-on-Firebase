@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     
-<!-- Mirrored from html.SoulMate.com/SoulMate/matches.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:48:51 GMT -->
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,12 +16,14 @@
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
 
 <script>
    
     var currentUid='';
     var currName='';
-    var currDob;
+    var currDob='';
+    var currImg='';
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyDelTKtp-0W1AesdYwsYWi2YdUXX_yZvws",
@@ -38,7 +39,15 @@
 const firebaseApp = firebase.initializeApp(firebaseConfig);
   const firebaseAppAuth = firebaseApp.auth();
   var database = firebase.database();
+  var storage = firebase.storage();
+var storageRef = storage.ref();
 var currGen='';
+if(localStorage.getItem('userID')){
+    var qw=localStorage.getItem('userID');
+    console.log(qw)
+   getRequests(qw) 
+    currentUid=qw;
+}
   /*
    <div class="col-md-2">
                         <div class="active_mem_item">
@@ -47,13 +56,13 @@ var currGen='';
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
                                     */
-function choose(id,name,dob){
-    alert("You chose: "+id);
+function choose(id,name,dob,img){
+    
     console.log("Chose: "+id);
     let abhi= Date.now()
     let oppgender=currGen=="Male"? 'Female':'Male'
-    database.ref('friends/'+id+"/"+currentUid).set({'timestamp':abhi,'name':currName,'dob':currDob});
-    database.ref('friends/'+currentUid+"/"+id).set({'timestamp':abhi,'name':name,'dob':dob});
+    database.ref('friends/'+id+"/"+currentUid).set({'timestamp':abhi,'name':currName,'dob':currDob,'image':currImg});
+    database.ref('friends/'+currentUid+"/"+id).set({'timestamp':abhi,'name':name,'dob':dob,'image':img});
 
    // database.ref('users/'+id+"/requests/"+currentUid).delete();
     database.ref('users/'+currGen+"/"+currentUid+"/requests/"+id).remove();
@@ -68,8 +77,9 @@ function choose(id,name,dob){
         console.log(gen)
 
         database.ref('users/'+gen+"/"+uid).once('value', function(snapshot) {
-            currName=snapshot.val().name;
+            currName=snapshot.val().fname+" "+snapshot.val().lname;
             currDob=snapshot.val().dob;
+            currImg=snapshot.val().profile_picture;
 });
 
         database.ref('users/'+gen+"/"+uid+"/requests").once('value', function(snapshot) {
@@ -98,26 +108,65 @@ function choose(id,name,dob){
     a1.setAttribute("class","dropdown-toggle")
     a1.setAttribute("data-toggle","dropdown")
     a1.setAttribute("role","button")
-    a1.setAttribute("onclick","choose('"+childKey+"','"+childData.name+"','"+childData.dob+"')")
+    a1.setAttribute("onclick","choose('"+childKey+"','"+childData.name+"','"+childData.dob+"','"+childData.currImg+"')")
     a1.setAttribute("aria-haspopup","true")
     a1.setAttribute("aria-expanded","false")
     dtl.append(a1);
 
     var img1=document.createElement("img");
     img1.setAttribute("class","img-circle");
-    img1.setAttribute("src","img/members/active-mem/active-mem-2.png")
+    img1.setAttribute("width","140px");
+    img1.setAttribute("style","max-height:140px;");
+   
     a1.appendChild(img1)
 
     var hh=document.createElement("h4");
-    hh.innerText=childData.name;
+
+      
+    var tod=new Date();
+        var currYear=tod.getFullYear();
+        var dt=new Date(childData.dob);
+        var dtt=dt.getFullYear();
+        var as=currYear-dtt;
+        console.log("Age: "+as)
+    hh.innerText=childData.name+", "+as;
     ami.appendChild(hh);
-    var hg=document.createElement("h5");
-    hg.innerText=childData.dob;
-    ami.appendChild(hg);
+
 
     var mainwala=document.getElementById('itthe');
     itthe.appendChild(cm);
 
+    storageRef.child(childData.currImg).getDownloadURL().then(function(url) {
+        console.log("Download URL: "+url)
+        img1.setAttribute("src",url);
+       // imgsr.setAttribute("src", url);
+
+  // Insert url into an <img> tag to "download"
+
+}).catch(function(error) {
+
+  // A full list of error codes is available at
+  // https://firebase.google.com/docs/storage/web/handle-errors
+  switch (error.code) {
+    case 'storage/object-not-found':
+      // File doesn't exist
+      break;
+
+    case 'storage/unauthorized':
+      // User doesn't have permission to access the object
+      break;
+
+    case 'storage/canceled':
+      // User canceled the upload
+      break;
+
+  
+
+    case 'storage/unknown':
+      // Unknown error occurred, inspect the server response
+      break;
+  }
+});
     // ...
   });
 });
@@ -127,12 +176,11 @@ function choose(id,name,dob){
 
   firebase.auth().onAuthStateChanged(function(user) {
 if (user) {
-    console.log(user.uid)
-    getRequests(user.uid)
-    currentUid=user.uid;
+    
 } else {
 // No user is signed in.
 console.log("User Logged Out")
+localStorage.removeItem('userID')
 window.location.href="index-2.html"
 
 }
@@ -265,65 +313,34 @@ window.location.href="index-2.html"
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index-2.html">Home 01</a></li>
-                                <li><a href="index-2.html">Home 02</a></li>
-                                <li><a href="index-2.html">Home 03</a></li>
-                            </ul>
+                        <li>
+                            <a href="index-2.html">Home</a>
+                           
                         </li>
+                       
                         <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                            <a href="swipe.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Matches</a>
                             <ul class="dropdown-menu">
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
-                                <li><a href="blog-right-sidebar.html">Blog right sidebar</a></li>
-                                <li><a href="single-blog-fullwidth.html">Blog Single Fullwidth</a></li>
-                                <li><a href="single-blog-left-sidebar.html">Blog Single left sidebar</a></li>
-                                <li><a href="single-blog-right-sidebar.html">Blog Single right sidebar</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown submenu active">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="community.html">Community</a></li>
-                                <li><a href="members.html">Members</a></li>
-                                <li><a href="members-detail.html">Members Details</a></li>
-                                <li><a href="discussions.html">Discussions</a></li>
-                                <li><a href="forums.html">Forums</a></li>
-                                <li><a href="groups.html">Groups</a></li>
-                                <li><a href="matches.html">Matches</a></li>
-                                <li><a href="quick.html">Quick</a></li>
+                                    <li><a href="swipe.html">Find Matches</a></li>
+
+                                <li><a href="matches.html">Requests</a></li>
+                                
+                                <li><a href="friends.html">My Matches</a></li>
+                               
                                 <li><a href="search.html">Search</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="shop-left.html">Shop Left</a></li>
-                                <li><a href="shop-right.html">Shop Right</a></li>
-                                <li><a href="product-details.html">Product Details</a></li>
-                                <li><a href="shop-cart.html">Shop Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                            </ul>
+                        <li>
+                            <a href="pricing.html">Plans</a>
+                            
                         </li>
-                        <li class="dropdown submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="pricing.html">Pricing</a></li>
-                                <li><a href="stories.html">Stories</a></li>
-                                <li><a href="why-us.html">Why us</a></li>
-                                <li><a href="404.html">Error</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="profile-details.html">My Profile</a></li>
+                        <li><a href="about-us.html">About us</a></li>
                         <li><a href="contact.html">Contact us</a></li>
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="popup-with-zoom-anim" href="#small-dialog"><i class="mdi mdi-key-variant"></i>Login</a></li>
-                        <li><a href="#register_form" class="popup-with-zoom-anim"><i class="fa fa-user-plus"></i>Registration</a></li>
+                        <li style="margin-top:10px;"><button type="button" onclick="signOut()" value="LogOut" class="btn form-control login_btn">Log Out</button></li>
                         <li class="flag_drop">
                             <div class="selector">
                                 <select class="language_drop" name="countries" id="countries" style="width:300px;">
@@ -345,9 +362,9 @@ window.location.href="index-2.html"
         <section class="banner_area">
             <div class="container">
                 <div class="banner_content">
-                    <h3 title="Matches"><img class="left_img" src="img/banner/t-left-img.png" alt="">Matches<img class="right_img" src="img/banner/t-right-img.png" alt=""></h3>
+                    <h3 title="Matches"><img class="left_img" src="img/banner/t-left-img.png" alt="">Requests<img class="right_img" src="img/banner/t-right-img.png" alt=""></h3>
                     <a href="index-2.html">Home</a>
-                    <a href="matches.html">Matches</a>
+                    <a href="matches.html">Requests</a>
                 </div>
             </div>
         </section>
@@ -360,153 +377,10 @@ window.location.href="index-2.html"
         <!--================End Advanced Search Area =================-->
         <section class="active_members">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-1.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-3.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-2.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-4.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-3.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-5.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-4.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-6.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-5.png" alt=""></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <div class="head_area">
-                                                <h4>Lara Davis</h4>
-                                                <h4>53% Match</h4>
-                                            </div>
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <img src="img/photo/people-p/people-drop-2.png" alt="">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6>29 years old <br> From Derby <br> Single</h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="active_mem_item">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown tool_hover">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img class="img-circle" src="img/members/active-mem/active-mem-6.png" alt=""></a>
-                                </li>
-                            </ul>
-                            <h4>Maria Doe</h4>
-                            <h5>22 years old</h5>
-                        </div>
-                    </div>
+                <div class="row" id="itthe">
+                    
+                    
+                    
                 </div>
             </div>
         </section>
@@ -521,11 +395,11 @@ window.location.href="index-2.html"
                             <aside class="f_widget">
                                 <div class="Soul_widget">
                                     <h4><span>Soul</span>Mate</h4>
-                                    <p>There are many variations of passag-es of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything .</p>
+                                    <p>Soul Mate is the one and only Dating in the country which allow users to find partners through surnames.</p>
                                 </div>
                             </aside>
                         </div>
+                        
                         <div class="col-md-3">
                             <aside class="f_widget">
                                 <div class="f_widget_title">
@@ -533,32 +407,17 @@ window.location.href="index-2.html"
                                 </div>
                                 <div class="information_widget">
                                     <ul>
-                                        <li><a href="#">About us</a></li>
-                                        <li><a href="#">Contact us</a></li>
-                                        <li><a href="#">Membership</a></li>
+                                        <li><a href="about-us.html">About us</a></li>
+                                        <li><a href="contact.html">Contact us</a></li>
+                                        <li><a href="pricing.html">Membership</a></li>
                                         <li><a href="#">Private Policy</a></li>
                                         <li><a href="#">Forum Support</a></li>
                                     </ul>
                                 </div>
                             </aside>
                         </div>
-                        <div class="col-md-3">
-                            <aside class="f_widget">
-                                <div class="f_widget_title">
-                                    <h3>Recent posts</h3>
-                                </div>
-                                <div class="recent_post_widget">
-                                    <ul>
-                                        <li><a href="#">Blog Standard Post <span>14 Sep, 2016</span></a></li>
-                                        <li><a href="#">Blog Image Post <span>12 Sep, 2016</span></a></li>
-                                        <li><a href="#">BlogVideo Post <span>08 Sep, 2016</span></a></li>
-                                        <li><a href="#">Blog Audio  Post <span>03 Sep, 2016</span></a></li>
-                                        <li><a href="#">Blog Standard Post <span>16 Aug, 2016</span></a></li>
-                                    </ul>
-                                </div>
-                            </aside>
-                        </div>
-                        <div class="col-md-3">
+                       
+                        <div class="col-md-3"style="margin-left:7%;">
                             <aside class="f_widget">
                                 <div class="f_widget_title">
                                     <h3>Newsletter Signup</h3>
@@ -580,7 +439,7 @@ window.location.href="index-2.html"
             <div class="copyright">
                 <div class="copyright_left">
                     <div class="copyright_text">
-                        <h4>Copyright © 2017. <a href="#">SoulMate</a> . all rights reserved</h4>
+                        <h4>Copyright © 2019. <a href="#">SoulMate</a> . all rights reserved</h4>
                     </div>
                 </div>
                 <div class="copyright_right">
@@ -591,7 +450,7 @@ window.location.href="index-2.html"
                             <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                             <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
                             <li><a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
                             <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                         </ul>
@@ -638,6 +497,4 @@ window.location.href="index-2.html"
         <script src="js/video_player.js"></script>
         <script src="js/theme.js"></script>
     </body>
-
-<!-- Mirrored from html.SoulMate.com/SoulMate/matches.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Nov 2019 07:48:55 GMT -->
 </html>
